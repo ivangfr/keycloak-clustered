@@ -37,6 +37,8 @@ ADD databases/mariadb/module.xml /opt/jboss/keycloak/modules/system/layers/base/
 ENV JBOSS_HOME /opt/jboss/keycloak
 ENV LANG en_US.UTF-8
 
+COPY standalone/configuration/standalone-ha.xml /opt/jboss/keycloak/standalone/configuration/standalone-ha.xml
+
 HEALTHCHECK \
   --start-period=40s \
   --interval=10s \
@@ -47,5 +49,3 @@ HEALTHCHECK \
 EXPOSE 8080
 
 ENTRYPOINT [ "/opt/jboss/docker-entrypoint.sh" ]
-
-CMD ["-b", "0.0.0.0"]

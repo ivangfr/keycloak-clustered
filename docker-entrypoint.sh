@@ -90,5 +90,9 @@ fi
 # Start Keycloak #
 ##################
 
-exec /opt/jboss/keycloak/bin/standalone.sh $@
+exec /opt/jboss/keycloak/bin/standalone.sh \
+  -b 0.0.0.0 \
+  --server-config standalone-ha.xml \
+  -Djboss.bind.address.private=$(hostname -i)
+
 exit $?
