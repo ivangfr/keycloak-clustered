@@ -12,7 +12,7 @@ Ivan Franchin ([LinkedIn](https://www.linkedin.com/in/ivanfranchin))
 
 ## Note
 
-**When we have instances of Keycloak running in different docker machines, they are NOT joining the infinispan cluster. [More about](https://www.keycloak.org/docs/latest/server_installation/index.html#troubleshooting-2)**
+**When we have instances of Keycloak running in different Nodes, they are NOT joining the infinispan cluster. [More about](https://www.keycloak.org/docs/latest/server_installation/index.html#troubleshooting-2)**
 
 ## Environment Variables
 
@@ -30,7 +30,7 @@ _(1)_ For more information check [Replication and Failover](https://www.keycloak
 
 ## Start Environment
 
-#### (Optional) Build the docker image
+#### Build the docker image
 ```
 docker build -t ivanfranchin/keycloak-clustered:development .
 ```
