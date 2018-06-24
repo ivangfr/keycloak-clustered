@@ -300,9 +300,36 @@
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:jgroups:5.0">
             <channels default="ee">
-                <channel name="ee" stack="udp" cluster="ejb"/>
+                <channel name="ee" stack="tcp-ping"/>
             </channels>
             <stacks>
+                <stack name="tcp-ping">
+                    <transport type="TCP" socket-binding="jgroups-tcp"/>
+                    <protocol type="JDBC_PING">
+                        <property name="datasource_jndi_name">java:jboss/datasources/KeycloakDS</property>
+                        <property name="initialize_sql">
+                            CREATE TABLE IF NOT EXISTS JGROUPSPING (
+                            own_addr varchar(200) NOT NULL,
+                            cluster_name varchar(200) NOT NULL,
+                            updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                            ping_data varbinary(5000) DEFAULT NULL,
+                            PRIMARY KEY (own_addr, cluster_name))
+                            ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+                        </property>
+                    </protocol>
+                    <protocol type="MERGE3"/>
+                    <protocol type="FD_SOCK"/>
+                    <protocol type="FD_ALL"/>
+                    <protocol type="VERIFY_SUSPECT"/>
+                    <protocol type="pbcast.NAKACK2"/>
+                    <protocol type="UNICAST3"/>
+                    <protocol type="pbcast.STABLE"/>
+                    <protocol type="pbcast.GMS">
+                        <property name="join_timeout">30000</property>
+                    </protocol>
+                    <protocol type="MFC"/>
+                    <protocol type="FRAG2"/>
+                </stack>
                 <stack name="udp">
                     <transport type="UDP" socket-binding="jgroups-udp"/>
                     <protocol type="PING"/>

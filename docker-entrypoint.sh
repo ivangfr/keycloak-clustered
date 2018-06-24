@@ -77,6 +77,8 @@ set_legacy_vars `echo $DB_VENDOR | tr a-z A-Z`
 
 echo "========================================================================="
 echo ""
+echo "  HOSTNAME: $HOSTNAME"
+echo ""
 echo "  Using $DB_NAME database"
 echo ""
 echo "========================================================================="
@@ -93,6 +95,7 @@ fi
 exec /opt/jboss/keycloak/bin/standalone.sh \
   -b 0.0.0.0 \
   --server-config standalone-ha.xml \
+  -Djboss.bind.address.management=$HOSTNAME \
   -Djboss.bind.address.private=$(hostname -i)
 
 exit $?
