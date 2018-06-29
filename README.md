@@ -1,6 +1,6 @@
 ## keycloak-clustered
 
-**keycloak-clustered** extends [`Keycloak docker image`](https://hub.docker.com/r/jboss/keycloak). It allows to run easily a cluster of Keycloak instances in [Standalone Clustered Mode](https://www.keycloak.org/docs/latest/server_installation/index.html#_standalone-ha-mode).
+**keycloak-clustered** extends [`Keycloak Oficial Docker Image`](https://hub.docker.com/r/jboss/keycloak). It allows to run easily a cluster of [Keycloak](https://www.keycloak.org) instances.
 
 ### Supported tags and respective `Dockerfile` links
 
@@ -9,10 +9,6 @@
 ### Author
 
 Ivan Franchin ([LinkedIn](https://www.linkedin.com/in/ivanfranchin))
-
-## Note
-
-**When we have instances of Keycloak running in different Nodes, they are NOT joining the infinispan cluster. [More about](https://www.keycloak.org/docs/latest/server_installation/index.html#troubleshooting-2)**
 
 ## Environment Variables
 
@@ -27,6 +23,10 @@ Ivan Franchin ([LinkedIn](https://www.linkedin.com/in/ivanfranchin))
 |**DIST_CACHE_OWNERS** _(1)_|Specify number of distributed cache owners for handling user sessions (optional, default is `1`)|
 
 _(1)_ For more information check [Replication and Failover](https://www.keycloak.org/docs/latest/server_installation/index.html#replication-and-failover) in Keycloak Documentation
+
+## JDBC_PING
+
+This docker image uses the discovery protocol [`JDBC_PING`](https://developer.jboss.org/wiki/JDBCPING) to find `keycloak-clustered` instances in a network. The discovery protocol simply uses a single table in `keycloak` database called `JGROUPSPING`. As soon as a `keycloak-clustered` instance starts, a record referencing to it is inserted in `JGROUPSPING` table. It is through this table that the instances `ping` each other.
 
 ## Start Environment
 
@@ -54,13 +54,11 @@ docker run -d --rm \
 mysql:5.7.22
 ```
 
-## Standalone Clustered Mode
-
-#### Run _keycloak-standalone-1_
+#### Run _keycloak-clustered-1_
 ```
 docker run -d --rm \
---name keycloak-standalone-1 \
---hostname keycloak-standalone-1 \
+--name keycloak-clustered-1 \
+--hostname keycloak-clustered-1 \
 --network keycloak-net \
 -p 8080:8080 \
 -e KEYCLOAK_USER=admin \
@@ -70,11 +68,11 @@ docker run -d --rm \
 ivanfranchin/keycloak-clustered:development
 ```
 
-#### Run _keycloak-standalone-2_
+#### Run _keycloak-clustered-2_
 ```
 docker run -d --rm \
---name keycloak-standalone-2 \
---hostname keycloak-standalone-2 \
+--name keycloak-clustered-2 \
+--hostname keycloak-clustered-2 \
 --network keycloak-net \
 -p 8081:8080 \
 -e DIST_CACHE_OWNERS=2 \
@@ -82,9 +80,21 @@ docker run -d --rm \
 ivanfranchin/keycloak-clustered:development
 ```
 
+#### Check records in _JGROUPSPING_ table
+
+- Run `docker exec` on the `mysql` running container
+```
+docker exec -it mysql bash -c 'mysql -ukeycloak -ppassword'
+```
+
+- Inside `MySQL` run the following `select`
+```
+select * from keycloak.JGROUPSPING;
+```
+
 ### Keycloak Tutorial
 
-You can find the more information from creating a Realm in Keycloak until connection this Realm to a LDAP service in: https://github.com/ivangfr/springboot-keycloak-openldap#configuring-keycloak
+You can find more information about configuring Keycloak in https://github.com/ivangfr/springboot-keycloak-openldap#configuring-keycloak. In this link, it is explained since basic stuffs like to create a Realm or an user, until more complex ones like how to connect to a LDAP service.
 
 ### Extras
 
