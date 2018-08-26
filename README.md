@@ -20,7 +20,7 @@ Ivan Franchin ([LinkedIn](https://www.linkedin.com/in/ivanfranchin))
 |**DB_DATABASE**|Specify name of the database to use (optional, default is `keycloak`)|
 |**DB_USERNAME**|Specify user to use to authenticate to the database (optional, default is `keycloak`)|
 |**DB_PASSWORD**|Specify user's password to use to authenticate to the database (optional, default is `password`)|
-|**DIST_CACHE_OWNERS** _(1)_|Specify number of distributed cache owners for handling user sessions (optional, default is `1`)|
+|**DIST_CACHE_OWNERS** _(1)_|Specify number of distributed cache owners for handling user sessions (optional, default is `2`)|
 
 _(1)_ For more information check [Replication and Failover](https://www.keycloak.org/docs/latest/server_installation/index.html#replication-and-failover) in Keycloak Documentation
 
@@ -63,7 +63,6 @@ docker run -d --rm \
 -p 8080:8080 \
 -e KEYCLOAK_USER=admin \
 -e KEYCLOAK_PASSWORD=admin \
--e DIST_CACHE_OWNERS=2 \
 -e JDBC_PARAMS=useSSL=false \
 ivanfranchin/keycloak-clustered:development
 ```
@@ -75,7 +74,6 @@ docker run -d --rm \
 --hostname keycloak-clustered-2 \
 --network keycloak-net \
 -p 8081:8080 \
--e DIST_CACHE_OWNERS=2 \
 -e JDBC_PARAMS=useSSL=false \
 ivanfranchin/keycloak-clustered:development
 ```

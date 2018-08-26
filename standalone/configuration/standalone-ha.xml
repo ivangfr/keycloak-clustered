@@ -223,12 +223,12 @@
                 <local-cache name="users">
                     <eviction max-entries="10000" strategy="LRU"/>
                 </local-cache>
-                <distributed-cache name="sessions" mode="SYNC" owners="${env.DIST_CACHE_OWNERS:1}"/>
-                <distributed-cache name="authenticationSessions" mode="SYNC" owners="${env.DIST_CACHE_OWNERS:1}"/>
-                <distributed-cache name="offlineSessions" mode="SYNC" owners="${env.DIST_CACHE_OWNERS:1}"/>
-                <distributed-cache name="clientSessions" mode="SYNC" owners="${env.DIST_CACHE_OWNERS:1}"/>
-                <distributed-cache name="offlineClientSessions" mode="SYNC" owners="${env.DIST_CACHE_OWNERS:1}"/>
-                <distributed-cache name="loginFailures" mode="SYNC" owners="${env.DIST_CACHE_OWNERS:1}"/>
+                <distributed-cache name="sessions" mode="SYNC" owners="${env.DIST_CACHE_OWNERS:2}"/>
+                <distributed-cache name="authenticationSessions" mode="SYNC" owners="${env.DIST_CACHE_OWNERS:2}"/>
+                <distributed-cache name="offlineSessions" mode="SYNC" owners="${env.DIST_CACHE_OWNERS:2}"/>
+                <distributed-cache name="clientSessions" mode="SYNC" owners="${env.DIST_CACHE_OWNERS:2}"/>
+                <distributed-cache name="offlineClientSessions" mode="SYNC" owners="${env.DIST_CACHE_OWNERS:2}"/>
+                <distributed-cache name="loginFailures" mode="SYNC" owners="${env.DIST_CACHE_OWNERS:2}"/>
                 <local-cache name="authorization">
                     <eviction max-entries="10000" strategy="LRU"/>
                 </local-cache>
@@ -307,6 +307,8 @@
                     <transport type="TCP" socket-binding="jgroups-tcp"/>
                     <protocol type="JDBC_PING">
                         <property name="datasource_jndi_name">java:jboss/datasources/KeycloakDS</property>
+                        <!-- <property name="clear_table_on_view_change">true</property>
+                        <property name="break_on_coord_rsp">true</property> -->
                         <property name="initialize_sql">
                             CREATE TABLE IF NOT EXISTS JGROUPSPING (
                             own_addr varchar(200) NOT NULL,
