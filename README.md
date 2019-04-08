@@ -1,8 +1,12 @@
-## keycloak-clustered
+# `keycloak-clustered`
 
-**keycloak-clustered** extends [`Keycloak Oficial Docker Image`](https://hub.docker.com/r/jboss/keycloak). It allows to run easily a cluster of [Keycloak](https://www.keycloak.org) instances.
+**keycloak-clustered** extends [`Keycloak Official Docker Image`](https://hub.docker.com/r/jboss/keycloak). It allows
+to run easily a cluster of [Keycloak](https://www.keycloak.org) instances.
 
-### Supported tags and respective `Dockerfile` links
+> Note. This project is DEPRECATED. At the time of its implementation, Keycloak Official Docker Image did not provide
+an easy and simple way of running Keycloak in cluster. 
+
+### Supported tags and respective Dockerfile links
 
 - `4.0.0.Final`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/Dockerfile))
 
@@ -22,25 +26,29 @@ Ivan Franchin ([LinkedIn](https://www.linkedin.com/in/ivanfranchin))
 |**DB_PASSWORD**|Specify user's password to use to authenticate to the database (optional, default is `password`)|
 |**DIST_CACHE_OWNERS** _(1)_|Specify number of distributed cache owners for handling user sessions (optional, default is `2`)|
 
-_(1)_ For more information check [Replication and Failover](https://www.keycloak.org/docs/latest/server_installation/index.html#replication-and-failover) in Keycloak Documentation
+_(1)_ For more information check [Replication and Failover](https://www.keycloak.org/docs/latest/server_installation/index.html#replication-and-failover)
+in Keycloak Documentation
 
 ## JDBC_PING
 
-This docker image uses the discovery protocol [`JDBC_PING`](https://developer.jboss.org/wiki/JDBCPING) to find `keycloak-clustered` instances in a network. The discovery protocol simply uses a single table in `keycloak` database called `JGROUPSPING`. As soon as a `keycloak-clustered` instance starts, a record referencing to it is inserted in `JGROUPSPING` table. It is through this table that the instances `ping` each other.
+This docker image uses the discovery protocol [`JDBC_PING`](https://developer.jboss.org/wiki/JDBCPING) to find
+`keycloak-clustered` instances in a network. The discovery protocol simply uses a single table in `keycloak` database
+called `JGROUPSPING`. As soon as a `keycloak-clustered` instance starts, a record referencing to it is inserted in
+`JGROUPSPING` table. It is through this table that the instances `ping` each other.
 
 ## Start Environment
 
-#### Build the docker image
+### Build the docker image
 ```
 docker build -t ivanfranchin/keycloak-clustered:development .
 ```
 
-#### Create network
+### Create network
 ```
 docker network create keycloak-net
 ```
 
-#### Start [MySQL](https://hub.docker.com/_/mysql) container
+### Start [MySQL](https://hub.docker.com/_/mysql) container
 ```
 docker run -d --rm \
 --name mysql \
@@ -54,7 +62,7 @@ docker run -d --rm \
 mysql:5.7.22
 ```
 
-#### Run _keycloak-clustered-1_
+### Run keycloak-clustered-1
 ```
 docker run -d --rm \
 --name keycloak-clustered-1 \
@@ -67,7 +75,7 @@ docker run -d --rm \
 ivanfranchin/keycloak-clustered:development
 ```
 
-#### Run _keycloak-clustered-2_
+### Run keycloak-clustered-2
 ```
 docker run -d --rm \
 --name keycloak-clustered-2 \
@@ -78,7 +86,7 @@ docker run -d --rm \
 ivanfranchin/keycloak-clustered:development
 ```
 
-#### Check records in _JGROUPSPING_ table
+### Check records in JGROUPSPING table
 
 - Run `docker exec` on the `mysql` running container
 ```
@@ -90,13 +98,16 @@ docker exec -it mysql bash -c 'mysql -ukeycloak -ppassword'
 select * from keycloak.JGROUPSPING;
 ```
 
-### Keycloak Tutorial
+## Keycloak Tutorial
 
-You can find more information about configuring Keycloak in https://github.com/ivangfr/springboot-keycloak-openldap#configuring-keycloak. In this link, it is explained since basic stuffs like to create a Realm or an user, until more complex ones like how to connect to a LDAP service.
+You can find more information about configuring Keycloak in https://github.com/ivangfr/springboot-keycloak-openldap#configuring-keycloak.
+In this link, it is explained since basic stuffs like to create a Realm or an user, until more complex ones like how
+to connect to a LDAP service.
 
-### Extras
+## Extras
 
-If you want to integrate `Keycloak` with [`OpenLDAP`](https://www.openldap.org), bellow are the containers you must run. Please check https://github.com/ivangfr/springboot-keycloak-openldap#configuring-ldap for more information.
+If you want to integrate `Keycloak` with [`OpenLDAP`](https://www.openldap.org), below are the containers you must run.
+Please check https://github.com/ivangfr/springboot-keycloak-openldap#configuring-ldap for more information.
 
 ```
 docker run -d --rm \
