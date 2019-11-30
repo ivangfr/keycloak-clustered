@@ -114,8 +114,8 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
 ## Running a Keycloak Cluster using JDBC_PING
 
 1. Start a cluster of Docker Engine in Swarm Mode. Here, two docker machines will be created. One will act as the
-**Manager (Leader)** and the another will be the **Worker**. The manager machine will be called `manager1` and the
-worker machine, `worker1`.
+   **Manager (Leader)** and the another will be the **Worker**. The manager machine will be called `manager1` and the
+   worker machine, `worker1`.
    ```
    setup-docker-swarm.sh
    ```
