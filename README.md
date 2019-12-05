@@ -1,23 +1,21 @@
 # `keycloak-clustered`
 
-**keycloak-clustered** extends [`Keycloak Official Docker Image`](https://hub.docker.com/r/jboss/keycloak). It allows
-to run easily a cluster of [Keycloak](https://www.keycloak.org) instances.
+**Keycloak-Clustered** extends [`Keycloak Official Docker Image`](https://hub.docker.com/r/jboss/keycloak). It allows to run easily a cluster of [Keycloak](https://www.keycloak.org) instances.
 
-In this docker image, we are adding to two scripts, `TCPPING.cli` and `JDBC_PING.cli`. They enable us to create a
-cluster using the discovery protocols `TCPPING` or `JDBC_PING`. The default discovery protocol is `PING`. However,
-`PING` just works when the Keycloak docker containers are running in the same host or data center. If you have Keycloak
-containers running in different hosts or data centers you must use `TCPPING` or `JDBC_PING`.
+The current `Keycloak Official Docker Image` supports `PING` discovery protocol out of the box. However, `PING` just works when the Keycloak docker containers are running in the same host or data center. If you have Keycloak containers running in different hosts or data centers you must use `TCPPING` or `JDBC_PING`.
+
+Therefore, in the `Keycloak-Clustered` Docker Images were added two script, `TCPPING.cli` and `JDBC_PING.cli`. They enable us to create a Keycloak cluster using `TCPPING` or `JDBC_PING` discovery protocols.
 
 More about `PING`, `TCPPING` and `JDBC_PING` discovery protocols at https://www.keycloak.org/2019/05/keycloak-cluster-setup.html.
 
-### Supported tags and respective Dockerfile links
+## Supported tags and respective Dockerfile links
 
 - `8.0.0`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/8.0.0/Dockerfile))
 - `7.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/7.0.1/Dockerfile))
 - `7.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/7.0.0/Dockerfile))
 - `6.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/6.0.1/Dockerfile))
 
-### Author
+## Author
 
 Ivan Franchin ([LinkedIn](https://www.linkedin.com/in/ivanfranchin)) ([Github](https://github.com/ivangfr))
 
@@ -124,7 +122,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
    ```
    eval $(docker-machine env manager1)
    ```
-   > Note. to get back to the Docker Daemon of the Host machine run
+   > **Note:** to get back to the Docker Daemon of the Host machine run
    > ```
    > eval $(docker-machine env -u)
    > ```
@@ -202,7 +200,8 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
      ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE           ERROR               PORTS
      u1iygxg7gv6l        mysql.1             mysql:5.7.28        manager1            Running             Running 5 minutes ago
      ```
-     > Note. In my case, it is running on `manager1`. However, if it was running on `worker1`, I musql changer to `worker1` Docker Daemon by running
+     
+     > **Note:** In my case, it is running on `manager1`. However, if it was running on `worker1`, I musql changer to `worker1` Docker Daemon by running
      > ```
      > eval $(docker-machine env worker1)
      > ```
