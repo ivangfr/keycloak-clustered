@@ -4,7 +4,7 @@
 
 The current `Keycloak Official Docker Image` supports `PING` discovery protocol out of the box. However, `PING` just works when the Keycloak docker containers are running in the same host or data center. If you have Keycloak containers running in different hosts or data centers you must use `TCPPING` or `JDBC_PING`.
 
-Therefore, in the `Keycloak-Clustered` Docker Images were added two script, `TCPPING.cli` and `JDBC_PING.cli`. They enable us to create a Keycloak cluster using `TCPPING` or `JDBC_PING` discovery protocols.
+In the `Keycloak-Clustered` Docker Image, two script were added: `TCPPING.cli` and `JDBC_PING.cli`. They enable us to create a Keycloak cluster using `TCPPING` or `JDBC_PING` discovery protocols.
 
 More about `PING`, `TCPPING` and `JDBC_PING` discovery protocols at https://www.keycloak.org/2019/05/keycloak-cluster-setup.html.
 
@@ -42,7 +42,6 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
    ```
    docker run -d --rm \
    --name mysql \
-   --hostname mysql \
    --network keycloak-net \
    -p 3306:3306 \
    -e MYSQL_DATABASE=keycloak \
@@ -165,7 +164,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
    ```
    docker service ps keycloak-clustered
    ```
-   You should see something like, with one instance running in `manager1` and another in `worker1`
+   You should see something similar to what it's shown below, with one instance running in `manager1` and another in `worker1`
    ```
    ID                  NAME                   IMAGE                                    NODE                DESIRED STATE       CURRENT STATE            ERROR               PORTS
    kuags8qas1i0        keycloak-clustered.1   ivanfranchin/keycloak-clustered:latest   worker1             Running             Running 10 seconds ago
@@ -202,7 +201,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
      u1iygxg7gv6l        mysql.1             mysql:5.7.28        manager1            Running             Running 5 minutes ago
      ```
      
-     > **Note:** In my case, it is running on `manager1`. However, if it was running on `worker1`, I musql changer to `worker1` Docker Daemon by running
+     > **Note:** In my case, it is running on `manager1`. However, if it is running on `worker1`, I must change to `worker1` Docker Daemon by running
      > ```
      > eval $(docker-machine env worker1)
      > ```
