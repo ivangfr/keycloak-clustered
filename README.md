@@ -10,7 +10,9 @@ More about `PING`, `TCPPING` and `JDBC_PING` discovery protocols at https://www.
 
 ## Supported tags and respective Dockerfile links
 
-- `8.0.1`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/8.0.1/Dockerfile))
+- `9.0.0`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/9.0.0/Dockerfile))
+- `8.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/8.0.2/Dockerfile))
+- `8.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/8.0.1/Dockerfile))
 - `8.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/8.0.0/Dockerfile))
 - `7.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/7.0.1/Dockerfile))
 - `7.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/7.0.0/Dockerfile))
@@ -48,7 +50,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
    -e MYSQL_USER=keycloak \
    -e MYSQL_PASSWORD=password \
    -e MYSQL_ROOT_PASSWORD=root_password \
-   mysql:5.7.28
+   mysql:5.7.29
    ```
 
 1. Run `keycloak-clustered-1`
@@ -86,7 +88,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
 1. Check if `keycloak-clustered` instances are sharing user sessions
 
    - Open two different browsers, for instance Chrome and Safari or Chrome and Incognito Chrome. In one access
-   `http://localhost:8080` and in another `http://localhost:8081` 
+   `http://localhost:8080/auth/admin/` and in another `http://localhost:8081/auth/admin/` 
    
    - Login with the following credentials
      ```
@@ -94,8 +96,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
      password: admin
      ```
    
-   - Once logged in, on the menu on the left, click on `Users` and then on `View All` button. The `admin` will appear.
-   Next, click on `admin`'s `Edit` button and, finally, click on `Sessions` tab. You should see that `admin` has two sessions.
+   - Once logged in, on the menu on the left, click on `Users` and then on `View All` button. The `admin` will appear. Next, click on `admin`'s `Edit` button and, finally, click on `Sessions` tab. You should see that `admin` has two sessions.
 
 1. Shutdown
 
@@ -110,6 +111,8 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
    ```
 
 ## Running a Keycloak Cluster using JDBC_PING
+
+> **Important:** You must have [`docker-machine`](https://docs.docker.com/machine/overview/) installed in your computer
 
 1. Start a cluster of Docker Engine in Swarm Mode. Here, two docker machines will be created. One will act as the
    **Manager (Leader)** and the another will be the **Worker**. The manager machine will be called `manager1` and the
@@ -138,7 +141,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
    -e MYSQL_USER=keycloak \
    -e MYSQL_PASSWORD=password \
    -e MYSQL_ROOT_PASSWORD=root_password \
-   mysql:5.7.28
+   mysql:5.7.29
    ```
 
 1. Create two instances of `keycloak-clustered` service
@@ -186,8 +189,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
      password: admin
      ```
    
-   - Once logged in, on the menu on the left, click on `Users` and then on `View All` button. The `admin` will appear.
-   Next, click on `admin`'s `Edit` button and, finally, click on `Sessions` tab. You should see that `admin` has two sessions.
+   - Once logged in, on the menu on the left, click on `Users` and then on `View All` button. The `admin` will appear. Next, click on `admin`'s `Edit` button and, finally, click on `Sessions` tab. You should see that `admin` has two sessions.
    
 1. Check records in `JGROUPSPING` table
 
@@ -198,7 +200,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
      You should see something like
      ```
      ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE           ERROR               PORTS
-     u1iygxg7gv6l        mysql.1             mysql:5.7.28        manager1            Running             Running 5 minutes ago
+     u1iygxg7gv6l        mysql.1             mysql:5.7.29        manager1            Running             Running 5 minutes ago
      ```
      
      > **Note:** In my case, it is running on `manager1`. However, if it is running on `worker1`, I must change to `worker1` Docker Daemon by running

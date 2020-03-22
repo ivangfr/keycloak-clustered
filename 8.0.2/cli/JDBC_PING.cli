@@ -1,0 +1,43 @@
+embed-server --server-config=standalone-ha.xml --std-out=echo
+
+batch
+
+/subsystem=infinispan/cache-container=keycloak/distributed-cache=sessions:write-attribute(name=owners, value=${env.CACHE_OWNERS:2})
+/subsystem=infinispan/cache-container=keycloak/distributed-cache=authenticationSessions:write-attribute(name=owners, value=${env.CACHE_OWNERS:2})
+/subsystem=infinispan/cache-container=keycloak/distributed-cache=offlineSessions:write-attribute(name=owners, value=${env.CACHE_OWNERS:2})
+/subsystem=infinispan/cache-container=keycloak/distributed-cache=loginFailures:write-attribute(name=owners, value=${env.CACHE_OWNERS:2})
+
+/subsystem=jgroups/stack=tcp:remove()
+/subsystem=jgroups/stack=tcp:add()
+/subsystem=jgroups/stack=tcp/transport=TCP:add(socket-binding="jgroups-tcp")
+/subsystem=jgroups/stack=tcp/protocol=JDBC_PING:add()
+/subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=datasource_jndi_name:add(value=java:jboss/datasources/KeycloakDS)
+
+/subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=initialize_sql:add(value="CREATE TABLE IF NOT EXISTS JGROUPSPING (own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, ping_data varbinary(5000) DEFAULT NULL, PRIMARY KEY (own_addr, cluster_name)) ENGINE=InnoDB DEFAULT CHARSET=utf8")
+
+/subsystem=jgroups/stack=tcp/protocol=MERGE3:add()
+/subsystem=jgroups/stack=tcp/protocol=FD_SOCK:add(socket-binding="jgroups-tcp-fd")
+/subsystem=jgroups/stack=tcp/protocol=FD:add()
+/subsystem=jgroups/stack=tcp/protocol=VERIFY_SUSPECT:add()
+/subsystem=jgroups/stack=tcp/protocol=pbcast.NAKACK2:add()
+/subsystem=jgroups/stack=tcp/protocol=UNICAST3:add()
+/subsystem=jgroups/stack=tcp/protocol=pbcast.STABLE:add()
+/subsystem=jgroups/stack=tcp/protocol=pbcast.GMS:add()
+/subsystem=jgroups/stack=tcp/protocol=pbcast.GMS/property=max_join_attempts:add(value=5)
+/subsystem=jgroups/stack=tcp/protocol=MFC:add()
+/subsystem=jgroups/stack=tcp/protocol=FRAG3:add()
+
+/subsystem=jgroups/stack=udp:remove()
+/subsystem=jgroups/channel=ee:write-attribute(name=stack, value=tcp)
+/socket-binding-group=standard-sockets/socket-binding=jgroups-mping:remove()
+
+run-batch
+
+try
+    :resolve-expression(expression=${env.JGROUPS_DISCOVERY_EXTERNAL_IP})
+    /subsystem=jgroups/stack=tcp/transport=TCP/property=external_addr/:add(value=${env.JGROUPS_DISCOVERY_EXTERNAL_IP})
+catch
+    echo "JGROUPS_DISCOVERY_EXTERNAL_IP maybe not set."
+end-try
+
+stop-embedded-server
