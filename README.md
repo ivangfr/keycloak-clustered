@@ -1,6 +1,6 @@
 # `keycloak-clustered`
 
-**Keycloak-Clustered** extends [`Keycloak Official Docker Image`](https://hub.docker.com/r/jboss/keycloak). It allows to run easily a cluster of [Keycloak](https://www.keycloak.org) instances.
+**Keycloak-Clustered** extends [`Keycloak Official Docker Image`](https://hub.docker.com/r/jboss/keycloak). It allows running easily a cluster of [Keycloak](https://www.keycloak.org) instances.
 
 The current `Keycloak Official Docker Image` supports `PING` discovery protocol out of the box. However, `PING` just works when the Keycloak docker containers are running in the same host or data center. If you have Keycloak containers running in different hosts or data centers you must use `TCPPING` or `JDBC_PING`.
 
@@ -10,7 +10,8 @@ More about `PING`, `TCPPING` and `JDBC_PING` discovery protocols at https://www.
 
 ## Supported tags and respective Dockerfile links
 
-- `9.0.2`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/9.0.2/Dockerfile))
+- `9.0.3`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/9.0.3/Dockerfile))
+- `9.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/9.0.2/Dockerfile))
 - `9.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/9.0.0/Dockerfile))
 - `8.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/8.0.2/Dockerfile))
 - `8.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/8.0.1/Dockerfile))
@@ -88,8 +89,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
    
 1. Check if `keycloak-clustered` instances are sharing user sessions
 
-   - Open two different browsers, for instance Chrome and Safari or Chrome and Incognito Chrome. In one access
-   `http://localhost:8080/auth/admin/` and in another `http://localhost:8081/auth/admin/` 
+   - Open two different browsers, for instance Chrome and Safari or Chrome and Incognito Chrome. In one access `http://localhost:8080/auth/admin/` and in another `http://localhost:8081/auth/admin/` 
    
    - Login with the following credentials
      ```
@@ -102,24 +102,22 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
 1. Shutdown
 
    - Remove containers
-   ```
-   docker stop keycloak-clustered-1 keycloak-clustered-2 mysql
-   ```
+     ```
+     docker stop keycloak-clustered-1 keycloak-clustered-2 mysql
+     ```
    
    - Remove network
-   ```
-   docker network rm keycloak-net
-   ```
+     ```
+     docker network rm keycloak-net
+     ```
 
 ## Running a Keycloak Cluster using JDBC_PING
 
 > **Important:** You must have [`docker-machine`](https://docs.docker.com/machine/overview/) installed in your computer
 
-1. Start a cluster of Docker Engine in Swarm Mode. Here, two docker machines will be created. One will act as the
-   **Manager (Leader)** and the another will be the **Worker**. The manager machine will be called `manager1` and the
-   worker machine, `worker1`.
+1. Start a cluster of Docker Engine in Swarm Mode. Here, two docker machines will be created. One will act as the **Manager (Leader)** and the another will be the **Worker**. The manager machine will be called `manager1` and the worker machine, `worker1`.
    ```
-   setup-docker-swarm.sh
+   ./setup-docker-swarm.sh
    ```
  
 1. Set the `manager1` Docker Daemon
@@ -168,6 +166,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
    ```
    docker service ps keycloak-clustered
    ```
+   
    You should see something similar to what it's shown below, with one instance running in `manager1` and another in `worker1`
    ```
    ID                  NAME                   IMAGE                                    NODE                DESIRED STATE       CURRENT STATE            ERROR               PORTS
@@ -227,11 +226,11 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
 1. Shutdown
 
    - Remove services
-   ```
-   docker service rm keycloak-clustered mysql
-   ```
+     ```
+     docker service rm keycloak-clustered mysql
+     ```
    
    - Remove docker machines
-   ```
-   docker-machine rm manager1 worker1
-   ```
+     ```
+     docker-machine rm manager1 worker1
+     ```
