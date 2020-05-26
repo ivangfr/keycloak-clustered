@@ -10,7 +10,9 @@ More about `PING`, `TCPPING` and `JDBC_PING` discovery protocols at https://www.
 
 ## Supported tags and respective Dockerfile links
 
-- `9.0.3`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/9.0.3/Dockerfile))
+- `10.0.1`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/10.0.1/Dockerfile))
+- `10.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/10.0.0/Dockerfile))
+- `9.0.3` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/9.0.3/Dockerfile))
 - `9.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/9.0.2/Dockerfile))
 - `9.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/9.0.0/Dockerfile))
 - `8.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/8.0.2/Dockerfile))
