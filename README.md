@@ -10,7 +10,8 @@ More about `PING`, `TCPPING` and `JDBC_PING` discovery protocols at https://www.
 
 ## Supported tags and respective Dockerfile links
 
-- `11.0.0`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/11.0.0/Dockerfile))
+- `11.0.1`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/11.0.1/Dockerfile))
+- `11.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/11.0.0/Dockerfile))
 - `10.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/10.0.2/Dockerfile))
 - `10.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/10.0.1/Dockerfile))
 - `10.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/10.0.0/Dockerfile))
@@ -56,7 +57,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
    -e MYSQL_USER=keycloak \
    -e MYSQL_PASSWORD=password \
    -e MYSQL_ROOT_PASSWORD=root_password \
-   mysql:5.7.30
+   mysql:5.7.31
    ```
 
 1. Run `keycloak-clustered-1`
@@ -144,7 +145,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
    -e MYSQL_USER=keycloak \
    -e MYSQL_PASSWORD=password \
    -e MYSQL_ROOT_PASSWORD=root_password \
-   mysql:5.7.30
+   mysql:5.7.31
    ```
 
 1. Create two instances of `keycloak-clustered` service
@@ -204,7 +205,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
      You should see something like
      ```
      ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE           ERROR               PORTS
-     u1iygxg7gv6l        mysql.1             mysql:5.7.30        manager1            Running             Running 5 minutes ago
+     u1iygxg7gv6l        mysql.1             mysql:5.7.31        manager1            Running             Running 5 minutes ago
      ```
      
      > **Note:** In my case, it is running on `manager1`. However, if it is running on `worker1`, I must change to `worker1` Docker Daemon by running
