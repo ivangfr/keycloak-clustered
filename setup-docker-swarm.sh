@@ -28,5 +28,5 @@ docker-machine ssh manager1 docker network create --driver overlay --attachable 
 
 echo
 echo "Swarm Node"
-echo "------------------------"
+echo "----------"
 docker-machine ssh manager1 docker node ls
