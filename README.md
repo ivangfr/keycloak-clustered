@@ -26,15 +26,13 @@ JGROUPS_DISCOVERY_PROPERTIES=initial_hosts="172.21.48.4[7600],172.21.48.39[7600]
 
 ### JDBC_PING
 
-The `JDBC_PING` has a `JGROUPS_DISCOVERY_PROTOCOL` for which database. Currently, it has support for:
-- `mysql`: `JDBC_PING_MYSQL`
-- `mariadb`: `JDBC_PING_MARIADB`
-- `postges`: `JDBC_PING_POSTGRES`
-
-In order to use `JDBC_PING`. we need to set two environment variables
+In order to use `JDBC_PING`. we need to set three environment variables
 ```
+#IP address of this host, please make sure this IP can be accessed by the other Keycloak instances
+JGROUPS_DISCOVERY_EXTERNAL_IP=172.21.48.39
+
 #protocol
-JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING_[DATABASE]
+JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING
 
 #datasource jndi name
 JGROUPS_DISCOVERY_PROPERTIES=datasource_jndi_name=java:jboss/datasources/KeycloakDS
@@ -181,7 +179,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
    -e DB_USER=keycloak \
    -e DB_PASSWORD=password \
    -e JDBC_PARAMS=useSSL=false \
-   -e JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING_POSTGRES \
+   -e JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING \
    -e JGROUPS_DISCOVERY_PROPERTIES=datasource_jndi_name=java:jboss/datasources/KeycloakDS \
    ivanfranchin/keycloak-clustered:latest
    ```
@@ -199,7 +197,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
    -e DB_USER=keycloak \
    -e DB_PASSWORD=password \
    -e JDBC_PARAMS=useSSL=false \
-   -e JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING_POSTGRES \
+   -e JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING \
    -e JGROUPS_DISCOVERY_PROPERTIES=datasource_jndi_name=java:jboss/datasources/KeycloakDS \
    ivanfranchin/keycloak-clustered:latest
    ```
@@ -276,7 +274,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
    -e DB_USER=keycloak \
    -e DB_PASSWORD=password \
    -e JDBC_PARAMS=useSSL=false \
-   -e JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING_MYSQL \
+   -e JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING \
    -e JGROUPS_DISCOVERY_PROPERTIES=datasource_jndi_name=java:jboss/datasources/KeycloakDS \
    ivanfranchin/keycloak-clustered:latest
    ```
@@ -353,3 +351,40 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
      ```
      docker-machine rm manager1 worker1
      ```
+
+## Maintaining discovery protocol scripts
+
+- Run a `keycloak-clustered` docker container using one of the approaches described above
+
+- Docker exec into the container
+  ```
+  docker exec -it keycloak-clustered bash
+  ```
+
+- Inside the container, there are two ways
+
+  1. Running a script directly
+  
+     For instance
+     ```
+     cd opt/jboss/keycloak/bin
+     ./jboss-cli.sh --file=/opt/jboss/tools/cli/jgroups/discovery/JDBC_PING.cli
+     ```
+  
+  1. Running command-by-command using the terminal
+  
+     - Access `jboss-cli` by running the command below
+       ```
+       cd opt/jboss/keycloak/bin
+       ./jboss-cli.sh --connect
+       ```
+
+     - Once in `jboss-cli` terminal, we can run all available commands.
+     
+       For instance
+       ```
+       /subsystem=datasources/data-source=KeycloakDS:read-resource(recursive=true)
+       /subsystem=datasources/data-source=KeycloakDS:read-attribute(name=driver-name)
+       ```
+     
+       For more information check https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/management_cli_guide/index#use_if_else_control_flow
