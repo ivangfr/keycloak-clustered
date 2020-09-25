@@ -1,21 +1,25 @@
 embed-server --server-config=standalone-ha.xml --std-out=echo
 
 batch
-  /subsystem=infinispan/cache-container=keycloak/distributed-cache=sessions:write-attribute(name=owners, value=${env.CACHE_OWNERS:2})
-  /subsystem=infinispan/cache-container=keycloak/distributed-cache=authenticationSessions:write-attribute(name=owners, value=${env.CACHE_OWNERS:2})
-  /subsystem=infinispan/cache-container=keycloak/distributed-cache=offlineSessions:write-attribute(name=owners, value=${env.CACHE_OWNERS:2})
-  /subsystem=infinispan/cache-container=keycloak/distributed-cache=loginFailures:write-attribute(name=owners, value=${env.CACHE_OWNERS:2})
+
+/subsystem=infinispan/cache-container=keycloak/distributed-cache=sessions:write-attribute(name=owners, value=${env.CACHE_OWNERS:2})
+/subsystem=infinispan/cache-container=keycloak/distributed-cache=authenticationSessions:write-attribute(name=owners, value=${env.CACHE_OWNERS:2})
+/subsystem=infinispan/cache-container=keycloak/distributed-cache=offlineSessions:write-attribute(name=owners, value=${env.CACHE_OWNERS:2})
+/subsystem=infinispan/cache-container=keycloak/distributed-cache=loginFailures:write-attribute(name=owners, value=${env.CACHE_OWNERS:2})
+
 run-batch
 
 try
   /subsystem=jgroups/stack=udp:remove()
   /subsystem=jgroups/stack=tcp/protocol=MPING:remove()
 catch
+  echo "=> An exception was thrown while running '/subsystem=jgroups/stack=udp:remove()' or '/subsystem=jgroups/stack=tcp/protocol=MPING:remove()'"
 end-try
 
 try
   /subsystem=jgroups/stack=tcp/protocol=$keycloak_jgroups_discovery_protocol:remove()
 catch
+  echo "=> An exception was thrown while running '/subsystem=jgroups/stack=tcp/protocol=$keycloak_jgroups_discovery_protocol:remove()'"
 finally
   /subsystem=jgroups/stack=tcp/protocol=$keycloak_jgroups_discovery_protocol:add(add-index=0, properties=$keycloak_jgroups_discovery_protocol_properties)
   /subsystem=jgroups/channel=ee:write-attribute(name=stack, value="tcp")
