@@ -46,15 +46,6 @@ JGROUPS_DISCOVERY_PROPERTIES=datasource_jndi_name=java:jboss/datasources/Keycloa
 - `10.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/10.0.2/Dockerfile))
 - `10.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/10.0.1/Dockerfile))
 - `10.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/10.0.0/Dockerfile))
-- `9.0.3` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/9.0.3/Dockerfile))
-- `9.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/9.0.2/Dockerfile))
-- `9.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/9.0.0/Dockerfile))
-- `8.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/8.0.2/Dockerfile))
-- `8.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/8.0.1/Dockerfile))
-- `8.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/8.0.0/Dockerfile))
-- `7.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/7.0.1/Dockerfile))
-- `7.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/7.0.0/Dockerfile))
-- `6.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/6.0.1/Dockerfile))
 
 ## Author
 
