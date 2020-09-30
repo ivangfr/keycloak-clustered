@@ -6,24 +6,28 @@ batch
 /subsystem=infinispan/cache-container=keycloak/distributed-cache=authenticationSessions:write-attribute(name=owners, value=${env.CACHE_OWNERS:2})
 /subsystem=infinispan/cache-container=keycloak/distributed-cache=offlineSessions:write-attribute(name=owners, value=${env.CACHE_OWNERS:2})
 /subsystem=infinispan/cache-container=keycloak/distributed-cache=loginFailures:write-attribute(name=owners, value=${env.CACHE_OWNERS:2})
+/subsystem=infinispan/cache-container=keycloak/distributed-cache=actionTokens:write-attribute(name=owners, value=${env.CACHE_OWNERS:2})
+/subsystem=infinispan/cache-container=keycloak/distributed-cache=clientSessions:write-attribute(name=owners, value=${env.CACHE_OWNERS:2})
+/subsystem=infinispan/cache-container=keycloak/distributed-cache=offlineClientSessions:write-attribute(name=owners, value=${env.CACHE_OWNERS:2})
+
+/subsystem=jgroups/stack=tcp/protocol=TCPPING:add(add-index=0, properties=$keycloak_jgroups_discovery_protocol_properties)
+/subsystem=jgroups/channel=ee:write-attribute(name=stack, value="tcp")
 
 run-batch
 
-try
-  /subsystem=jgroups/stack=udp:remove()
-  /subsystem=jgroups/stack=tcp/protocol=MPING:remove()
-catch
-  echo "=> An exception was thrown while running '/subsystem=jgroups/stack=udp:remove()' or '/subsystem=jgroups/stack=tcp/protocol=MPING:remove()'"
-end-try
+if (outcome == success) of /subsystem=jgroups/stack=udp/protocol=PING:read-resource()
+    /subsystem=jgroups/stack=udp/protocol=PING:remove()
+end-if
+
+if (outcome == success) of /subsystem=jgroups/stack=tcp/protocol=MPING:read-resource()
+    /subsystem=jgroups/stack=tcp/protocol=MPING:remove()
+end-if
 
 try
-  /subsystem=jgroups/stack=tcp/protocol=$keycloak_jgroups_discovery_protocol:remove()
+    :resolve-expression(expression=${env.JGROUPS_DISCOVERY_EXTERNAL_IP})
+    /subsystem=jgroups/stack=tcp/transport=TCP/property=external_addr/:add(value=${env.JGROUPS_DISCOVERY_EXTERNAL_IP})
 catch
-  echo "=> An exception was thrown while running '/subsystem=jgroups/stack=tcp/protocol=$keycloak_jgroups_discovery_protocol:remove()'"
-finally
-  /subsystem=jgroups/stack=tcp/protocol=$keycloak_jgroups_discovery_protocol:add(add-index=0, properties=$keycloak_jgroups_discovery_protocol_properties)
-  /subsystem=jgroups/channel=ee:write-attribute(name=stack, value="tcp")
-  /subsystem=jgroups/stack=tcp/transport=TCP/property=external_addr/:add(value=${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1})
+    echo "JGROUPS_DISCOVERY_EXTERNAL_IP maybe not set."
 end-try
 
 stop-embedded-server
