@@ -40,7 +40,8 @@ JGROUPS_DISCOVERY_PROPERTIES=datasource_jndi_name=java:jboss/datasources/Keycloa
 
 ## Supported tags and respective Dockerfile links
 
-- `11.0.2`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/11.0.2/Dockerfile))
+- `11.0.3`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/11.0.3/Dockerfile))
+- `11.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/11.0.2/Dockerfile))
 - `11.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/11.0.1/Dockerfile))
 - `11.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/11.0.0/Dockerfile))
 - `10.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/10.0.2/Dockerfile))
@@ -115,7 +116,7 @@ Please, refer to the official `jboss/keycloak` documentation at https://hub.dock
 
 ### Check if keycloak-clustered instances are sharing user sessions
 
-  - Open two different browsers, for instance Chrome and Safari or Chrome and Incognito Chrome. In one access `http://localhost:8080/auth/admin/` and in another `http://localhost:8081/auth/admin/` 
+  - Open two different browsers, for instance Chrome and Safari or Chrome and Incognito Chrome. In one access `http://localhost:8080/auth/admin/` and, in another, `http://localhost:8081/auth/admin/` 
    
   - Login with the following credentials
     ```
