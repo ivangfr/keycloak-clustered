@@ -40,7 +40,8 @@ JGROUPS_DISCOVERY_PROPERTIES=datasource_jndi_name=java:jboss/datasources/Keycloa
 
 ## Supported tags and respective Dockerfile links
 
-- `11.0.3`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/11.0.3/Dockerfile))
+- `12.0.1`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/12.0.1/Dockerfile))
+- `11.0.3` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/11.0.3/Dockerfile))
 - `11.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/11.0.2/Dockerfile))
 - `11.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/11.0.1/Dockerfile))
 - `11.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/11.0.0/Dockerfile))
@@ -79,7 +80,7 @@ Please, refer to the official `jboss/keycloak` documentation at https://hub.dock
   -e MYSQL_USER=keycloak \
   -e MYSQL_PASSWORD=password \
   -e MYSQL_ROOT_PASSWORD=root_password \
-  mysql:5.7.31
+  mysql:5.7.32
   ```
 
 - Run `keycloak-clustered-1`
