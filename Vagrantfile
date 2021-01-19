@@ -3,7 +3,7 @@
  DISCOVERY_PROTOCOL = "JDBC_PING"  # Options: "JDBC_PING" | "TCPPING"
           DB_VENDOR = "mysql"      # Options: "mysql" | "mariadb" | "postgres"
  BUILD_DOCKER_IMAGE = false        # Options: true | false
-BUILD_IMAGE_VERSION = "12.0.1"
+BUILD_IMAGE_VERSION = "12.0.2"
 
 # ----------------------------------------------------------------------------------------------------------------------
 
