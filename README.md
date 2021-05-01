@@ -6,7 +6,7 @@ The current `Keycloak Official Docker Image` supports `PING` discovery protocol 
 
 In this `Keycloak-Clustered` Docker Image, we added scripts that enable us to create a Keycloak cluster using `TCPPING` or `JDBC_PING` discovery protocols.
 
-More about `PING`, `TCPPING` and `JDBC_PING` discovery protocols at https://www.keycloak.org/2019/04/keycloak-cluster-setup.html.
+More about `PING`, `TCPPING` and `JDBC_PING` discovery protocols at https://www.keycloak.org/2019/05/keycloak-cluster-setup.html.
 
 ## Discovery Protocols
 
@@ -60,6 +60,15 @@ Ivan Franchin ([LinkedIn](https://www.linkedin.com/in/ivanfranchin)) ([Github](h
 
 Please, refer to the official `jboss/keycloak` documentation at https://hub.docker.com/r/jboss/keycloak
 
+## How do build locally a development Docker image
+
+- Navigate into one version folder
+
+- Build docker image
+  ```
+  docker build -t keycloak-clustered:development .
+  ```
+
 ## Running a Keycloak Cluster using PING in a local Docker network
 
 ### Prerequisites
@@ -73,50 +82,99 @@ Please, refer to the official `jboss/keycloak` documentation at https://hub.dock
   docker network create keycloak-net
   ```
 
-- Start [MySQL](https://hub.docker.com/_/mysql) container
-  ```
-  docker run -d --rm \
-  --name mysql \
-  --network keycloak-net \
-  -p 3306:3306 \
-  -e MYSQL_DATABASE=keycloak \
-  -e MYSQL_USER=keycloak \
-  -e MYSQL_PASSWORD=password \
-  -e MYSQL_ROOT_PASSWORD=root_password \
-  mysql:5.7.32
-  ```
+- Using `MySQL` as database
 
-- Run `keycloak-clustered-1`
-  ```
-  docker run -d --rm \
-  --name keycloak-clustered-1 \
-  --network keycloak-net \
-  -p 8080:8080 \
-  -e KEYCLOAK_USER=admin \
-  -e KEYCLOAK_PASSWORD=admin \
-  -e DB_VENDOR=mysql \
-  -e DB_ADDR=mysql \
-  -e DB_USER=keycloak \
-  -e DB_PASSWORD=password \
-  -e JDBC_PARAMS=useSSL=false \
-  ivanfranchin/keycloak-clustered:latest
-  ```
+  - Start [MySQL](https://hub.docker.com/_/mysql) container
+    ```
+    docker run -d --rm --name mysql -p 3306:3306 \
+    -e MYSQL_DATABASE=keycloak \
+    -e MYSQL_USER=keycloak \
+    -e MYSQL_PASSWORD=password \
+    -e MYSQL_ROOT_PASSWORD=root_password \
+    --network keycloak-net \
+    mysql:5.7.34
+    ```
 
-- Run `keycloak-clustered-2`
-  ```
-  docker run -d --rm \
-  --name keycloak-clustered-2 \
-  --network keycloak-net \
-  -p 8081:8080 \
-  -e KEYCLOAK_USER=admin \
-  -e KEYCLOAK_PASSWORD=admin \
-  -e DB_VENDOR=mysql \
-  -e DB_ADDR=mysql \
-  -e DB_USER=keycloak \
-  -e DB_PASSWORD=password \
-  -e JDBC_PARAMS=useSSL=false \
-  ivanfranchin/keycloak-clustered:latest
-  ```
+  - Run `keycloak-clustered-1`
+    ```
+    docker run -d --rm --name keycloak-clustered-1 -p 8080:8080 \
+    -e KEYCLOAK_USER=admin \
+    -e KEYCLOAK_PASSWORD=admin \
+    -e DB_VENDOR=mysql \
+    -e DB_ADDR=mysql \
+    -e DB_DATABASE=keycloak \
+    -e DB_USER=keycloak \
+    -e DB_PASSWORD=password \
+    -e JDBC_PARAMS=useSSL=false \
+    --network keycloak-net \
+    ivanfranchin/keycloak-clustered:latest
+    ```
+
+  - Run `keycloak-clustered-2`
+    ```
+    docker run -d --rm --name keycloak-clustered-2 -p 8081:8080 \
+    -e KEYCLOAK_USER=admin \
+    -e KEYCLOAK_PASSWORD=admin \
+    -e DB_VENDOR=mysql \
+    -e DB_ADDR=mysql \
+    -e DB_DATABASE=keycloak \
+    -e DB_USER=keycloak \
+    -e DB_PASSWORD=password \
+    -e JDBC_PARAMS=useSSL=false \
+    --network keycloak-net \
+    ivanfranchin/keycloak-clustered:latest
+    ```
+
+- Using `Postgres` as database setting `DB_SCHEMA`
+
+  - Start [Postgres](https://hub.docker.com/_/postgres) container
+    ```
+    docker run -d --rm --name postgres -p 5432:5432 \
+    -e POSTGRES_DB=keycloak \
+    -e POSTGRES_USER=keycloak \
+    -e POSTGRES_PASSWORD=password \
+    --network keycloak-net \
+    postgres:13.2
+    ```
+
+  - Access `psql` terminal inside Docker container and create Schema called `myschema`
+    ```
+    docker exec -it postgres psql -U keycloak
+    keycloak=# CREATE SCHEMA myschema;
+    ```
+    > **Note:** To get out of `psql` terminal type `\q`
+
+  - Run `keycloak-clustered-1`
+    ```
+    docker run -d --rm --name keycloak-clustered-1 -p 8080:8080 \
+    -e KEYCLOAK_USER=admin \
+    -e KEYCLOAK_PASSWORD=admin \
+    -e DB_VENDOR=postgres \
+    -e DB_ADDR=postgres \
+    -e DB_DATABASE=keycloak \
+    -e DB_SCHEMA=myschema \
+    -e DB_USER=keycloak \
+    -e DB_PASSWORD=password \
+    -e JDBC_PARAMS=useSSL=false \
+    --network keycloak-net \
+    ivanfranchin/keycloak-clustered:latest
+    ```
+
+  - Run `keycloak-clustered-2`
+    ```
+    docker run -d --rm --name keycloak-clustered-2 -p 8081:8080 \
+    -e KEYCLOAK_USER=admin \
+    -e KEYCLOAK_PASSWORD=admin \
+    -e DB_VENDOR=postgres \
+    -e DB_ADDR=postgres \
+    -e DB_DATABASE=keycloak \
+    -e DB_SCHEMA=myschema \
+    -e DB_USER=keycloak \
+    -e DB_PASSWORD=password \
+    -e JDBC_PARAMS=useSSL=false \
+    --network keycloak-net \
+    ivanfranchin/keycloak-clustered:latest
+    ```
 
 ### Check if keycloak-clustered instances are sharing user sessions
 
@@ -133,9 +191,16 @@ Please, refer to the official `jboss/keycloak` documentation at https://hub.dock
 ### Teardown
 
  - Remove containers
-   ```
-   docker stop keycloak-clustered-1 keycloak-clustered-2 mysql
-   ```
+
+   - Using `MySQL` as database
+     ```
+     docker stop keycloak-clustered-1 keycloak-clustered-2 mysql
+     ```
+
+   - Using `Postgres` as database
+     ```
+     docker stop keycloak-clustered-1 keycloak-clustered-2 postgres
+     ```
 
  - Remove network
    ```
@@ -162,7 +227,7 @@ Please, refer to the official `jboss/keycloak` documentation at https://hub.dock
    
 - Wait a bit until the virtual machines get started. It will take some time.
 
-- Once all the execution of the command `vagrant up` finishes, we can check the state of all active Vagrant environments
+- Once the execution of the command `vagrant up` finishes, we can check the state of all active Vagrant environments
   ```
   vagrant status
   ```
@@ -192,7 +257,11 @@ Please, refer to the official `jboss/keycloak` documentation at https://hub.dock
     vagrant@vagrant:~$ docker exec -it mysql mysql -ukeycloak -ppassword --database=keycloak
     mysql> show tables;
     ```
-    > **Note 1:** If you are using `JDBC_PING`, you can select `JGROUPSPING` table and see the machine records, `SELECT * FROM JGROUPSPING;`
+    > **Note 1:** If you are using `JDBC_PING`, you can select `JGROUPSPING` table and see the machine records
+    >
+    > ```
+    > SELECT * FROM JGROUPSPING;
+    > ```
     >
     > **Note 2:** To exit type `exit`
 
@@ -201,16 +270,29 @@ Please, refer to the official `jboss/keycloak` documentation at https://hub.dock
     vagrant@vagrant:~$ docker exec -it mariadb mysql -ukeycloak -ppassword --database=keycloak
     MariaDB [keycloak]> show tables;
     ```
-    > **Note 1:** If you are using `JDBC_PING`, you can select `JGROUPSPING` table and see the machine records, `SELECT * FROM JGROUPSPING;`
+    > **Note 1:** If you are using `JDBC_PING`, you can select `JGROUPSPING` table and see the machine records 
+    >
+    > ```
+    > SELECT * FROM JGROUPSPING;
+    > ```
     >
     > **Note 2:** To exit type `exit`
      
   - Postgres
     ```
     vagrant@vagrant:~$ docker exec -it postgres psql -U keycloak
-    keycloak=# \d
+    keycloak=# \dt *.*
     ```
-    > **Note 1:** If you are using `JDBC_PING`, you can select `JGROUPSPING` table and see the machine records, `SELECT * FROM JGROUPSPING;`
+    > **Note 1:** If you are using `JDBC_PING`, you can select `JGROUPSPING` table and see the machine records
+    >
+    > ```
+    > SELECT * FROM JGROUPSPING;
+    > ```
+    > 
+    > If you set a `DB_SCHEMA`, for instance `myschema`, the select should be
+    > ```
+    > SELECT * FROM myschema.JGROUPSPING;
+    > ```
     >
     > **Note 2:** To exit type `\q`
 

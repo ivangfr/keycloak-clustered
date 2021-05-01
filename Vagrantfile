@@ -1,9 +1,17 @@
 # -- PARAMETERS --------------------------------------------------------------------------------------------------------
 
  DISCOVERY_PROTOCOL = "JDBC_PING"  # Options: "JDBC_PING" | "TCPPING"
-          DB_VENDOR = "mysql"      # Options: "mysql" | "mariadb" | "postgres"
  BUILD_DOCKER_IMAGE = false        # Options: true | false
 BUILD_IMAGE_VERSION = "12.0.4"
+# ---
+      KEYCLOAK_USER = "admin"
+  KEYCLOAK_PASSWORD = "admin"    
+          DB_VENDOR = "mysql"      # Options: "mysql" | "mariadb" | "postgres"
+        DB_DATABASE = "keycloak"
+          DB_SCHEMA = ""
+            DB_USER = "keycloak"
+        DB_PASSWORD = "password"
+        JDBC_PARAMS = "useSSL=false"
 
 # ----------------------------------------------------------------------------------------------------------------------
 
@@ -17,7 +25,12 @@ KEYCLOAK_2_IP = "10.0.0.12"
 
 KEYCLOAK_CLUSTERED_DOCKER_IMAGE = "ivanfranchin/keycloak-clustered:latest"
 
-KEYCLOAK_CLUSTERED_CONTAINER_ARGS = "-p 8080:8080 -p 7600:7600 -p 8443:8443 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -e DB_VENDOR=#{DB_VENDOR} -e DB_ADDR=#{DATABASE_IP} -e DB_PORT=#{DB_PORTS[DB_VENDOR]} -e DB_USER=keycloak -e DB_PASSWORD=password -e JDBC_PARAMS=useSSL=false"
+KEYCLOAK_CLUSTERED_CONTAINER_ARGS = "-p 8080:8080 -p 7600:7600 -p 8443:8443 -e KEYCLOAK_USER=#{KEYCLOAK_USER} -e KEYCLOAK_PASSWORD=#{KEYCLOAK_PASSWORD} -e DB_VENDOR=#{DB_VENDOR} -e DB_ADDR=#{DATABASE_IP} -e DB_PORT=#{DB_PORTS[DB_VENDOR]} -e DB_USER=#{DB_USER} -e DB_PASSWORD=#{DB_PASSWORD} -e JDBC_PARAMS=#{JDBC_PARAMS}"
+
+if DB_SCHEMA != ""
+  KEYCLOAK_CLUSTERED_CONTAINER_ARGS += " -e DB_SCHEMA=#{DB_SCHEMA}"
+end
+
 KEYCLOAK_CLUSTERED_1_CONTAINER_ARGS = KEYCLOAK_CLUSTERED_CONTAINER_ARGS
 KEYCLOAK_CLUSTERED_2_CONTAINER_ARGS = KEYCLOAK_CLUSTERED_CONTAINER_ARGS
 
@@ -39,16 +52,16 @@ Vagrant.configure("2") do |config|
     v.vm.network :private_network, ip: DATABASE_IP
     v.vm.provision "docker" do |d|
       d.run "mysql",
-        image: "mysql:5.7.32",
-        args: "-p 3306:3306 -e MYSQL_DATABASE=keycloak -e MYSQL_USER=keycloak -e MYSQL_PASSWORD=password -e MYSQL_ROOT_PASSWORD=root_password"
+        image: "mysql:5.7.34",
+        args: "-p 3306:3306 -e MYSQL_DATABASE=#{DB_DATABASE} -e MYSQL_USER=#{DB_USER} -e MYSQL_PASSWORD=#{DB_PASSWORD} -e MYSQL_ROOT_PASSWORD=root_password"
 
       d.run "mariadb",
-        image: "mariadb:10.5.8",
-        args: "-p 3307:3306 -e MYSQL_DATABASE=keycloak -e MYSQL_USER=keycloak -e MYSQL_PASSWORD=password -e MYSQL_ROOT_PASSWORD=root_password"
+        image: "mariadb:10.5.9",
+        args: "-p 3307:3306 -e MYSQL_DATABASE=#{DB_DATABASE} -e MYSQL_USER=#{DB_USER} -e MYSQL_PASSWORD=#{DB_PASSWORD} -e MYSQL_ROOT_PASSWORD=root_password"
 
       d.run "postgres",
-        image: "postgres:13.1",
-        args: "-p 5432:5432 -e POSTGRES_DB=keycloak -e POSTGRES_USER=keycloak -e POSTGRES_PASSWORD=password"
+        image: "postgres:13.2",
+        args: "-p 5432:5432 -e POSTGRES_DB=#{DB_DATABASE} -e POSTGRES_USER=#{DB_USER} -e POSTGRES_PASSWORD=#{DB_PASSWORD}"
     end
   end
 
