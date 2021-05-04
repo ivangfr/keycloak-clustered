@@ -2,27 +2,15 @@
 
 **Keycloak-Clustered** extends [`Keycloak Official Docker Image`](https://hub.docker.com/r/jboss/keycloak). It allows running easily a cluster of [Keycloak](https://www.keycloak.org) instances.
 
-The current `Keycloak Official Docker Image` supports `PING` discovery protocol out of the box. However, `PING` just works when the Keycloak docker containers are running in the same host or data center. If you have Keycloak containers running in different hosts or data centers you must use `TCPPING` or `JDBC_PING`.
+The current `Keycloak Official Docker Image` supports `PING` discovery protocol out of the box. However, `PING` just works when the Keycloak docker containers are running in the same host or data center. If you have Keycloak containers running in different hosts or data centers you must use `JDBC_PING` or `TCPPING`.
 
-In this `Keycloak-Clustered` Docker Image, we added scripts that enable us to create a Keycloak cluster using `TCPPING` or `JDBC_PING` discovery protocols.
+In this `Keycloak-Clustered` Docker Image, we added scripts that enable us to create a Keycloak cluster using `JDBC_PING` or `TCPPING` discovery protocols.
 
-More about `PING`, `TCPPING` and `JDBC_PING` discovery protocols at https://www.keycloak.org/2019/05/keycloak-cluster-setup.html.
+More about `PING`, `JDBC_PING` and `TCPPING` discovery protocols at https://www.keycloak.org/2019/05/keycloak-cluster-setup.html.
+
+> **IMPORTANT:** Currently, `TCPPING` is not working!
 
 ## Discovery Protocols
-
-### TCPPING
-
-In order to use `TCPPING`, we need to set three environment variables
-```
-#IP address of this host, please make sure this IP can be accessed by the other Keycloak instances
-JGROUPS_DISCOVERY_EXTERNAL_IP=10.0.0.11
-
-#protocol
-JGROUPS_DISCOVERY_PROTOCOL=TCPPING
-
-#IP and Port of all host
-JGROUPS_DISCOVERY_PROPERTIES=initial_hosts="10.0.0.11[7600],10.0.0.12[7600]"
-```
 
 ### JDBC_PING
 
@@ -38,19 +26,23 @@ JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING
 JGROUPS_DISCOVERY_PROPERTIES=datasource_jndi_name=java:jboss/datasources/KeycloakDS
 ```
 
+### TCPPING
+
+In order to use `TCPPING`, we need to set three environment variables
+```
+#IP address of this host, please make sure this IP can be accessed by the other Keycloak instances
+JGROUPS_DISCOVERY_EXTERNAL_IP=10.0.0.11
+
+#protocol
+JGROUPS_DISCOVERY_PROTOCOL=TCPPING
+
+#IP and Port of all host
+JGROUPS_DISCOVERY_PROPERTIES=initial_hosts="10.0.0.11[7600],10.0.0.12[7600]"
+```
+
 ## Supported tags and respective Dockerfile links
 
 - `12.0.4`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/12.0.4/Dockerfile))
-- `12.0.3` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/12.0.3/Dockerfile))
-- `12.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/12.0.2/Dockerfile))
-- `12.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/12.0.1/Dockerfile))
-- `11.0.3` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/11.0.3/Dockerfile))
-- `11.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/11.0.2/Dockerfile))
-- `11.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/11.0.1/Dockerfile))
-- `11.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/11.0.0/Dockerfile))
-- `10.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/10.0.2/Dockerfile))
-- `10.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/10.0.1/Dockerfile))
-- `10.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/10.0.0/Dockerfile))
 
 ## Author
 
@@ -60,7 +52,7 @@ Ivan Franchin ([LinkedIn](https://www.linkedin.com/in/ivanfranchin)) ([Github](h
 
 Please, refer to the official `jboss/keycloak` documentation at https://hub.docker.com/r/jboss/keycloak
 
-## How do build locally a development Docker image
+## How to build locally a development Docker image
 
 - Navigate into one version folder
 
@@ -68,6 +60,22 @@ Please, refer to the official `jboss/keycloak` documentation at https://hub.dock
   ```
   docker build -t keycloak-clustered:development .
   ```
+
+## How to check if Keycloak instances are sharing user sessions
+
+- Open two different browsers, for instance `Chrome` and `Safari` or `Chrome` and `Incognito Chrome`. In one access `http://localhost:8080/auth/admin/` and, in another, `http://localhost:8081/auth/admin/`
+
+- Login with the following credentials
+  ```
+  username: admin
+  password: admin
+  ```
+
+- Once logged in
+  - Click `Users` present on the menu on the left; 
+  - Then, click `View All` button. The `admin` will appear;
+  - Click `admin`'s `Edit` button;
+  - Finally, click `Sessions` tab. You should see that `admin` has two sessions.
 
 ## Running a Keycloak Cluster using PING in a local Docker network
 
@@ -77,137 +85,161 @@ Please, refer to the official `jboss/keycloak` documentation at https://hub.dock
 
 ### Startup
 
-- Create network
+- Open a terminal and create a Docker network
   ```
   docker network create keycloak-net
   ```
 
-- Using `MySQL` as database
+- Then, run [MySQL](https://hub.docker.com/_/mysql) Docker container
+  ```
+  docker run --rm --name mysql -p 3306:3306 \
+  -e MYSQL_DATABASE=keycloak \
+  -e MYSQL_USER=keycloak \
+  -e MYSQL_PASSWORD=password \
+  -e MYSQL_ROOT_PASSWORD=root_password \
+  --network keycloak-net \
+  mysql:5.7.34
+  ```
 
-  - Start [MySQL](https://hub.docker.com/_/mysql) container
-    ```
-    docker run -d --rm --name mysql -p 3306:3306 \
-    -e MYSQL_DATABASE=keycloak \
-    -e MYSQL_USER=keycloak \
-    -e MYSQL_PASSWORD=password \
-    -e MYSQL_ROOT_PASSWORD=root_password \
-    --network keycloak-net \
-    mysql:5.7.34
-    ```
+- Open another terminal and run `keycloak-clustered-1` Docker container
+  ```
+  docker run --rm --name keycloak-clustered-1 -p 8080:8080 \
+  -e KEYCLOAK_USER=admin \
+  -e KEYCLOAK_PASSWORD=admin \
+  -e DB_VENDOR=mysql \
+  -e DB_ADDR=mysql \
+  -e DB_DATABASE=keycloak \
+  -e DB_USER=keycloak \
+  -e DB_PASSWORD=password \
+  -e JDBC_PARAMS=useSSL=false \
+  --network keycloak-net \
+  ivanfranchin/keycloak-clustered:latest
+  ```
 
-  - Run `keycloak-clustered-1`
-    ```
-    docker run -d --rm --name keycloak-clustered-1 -p 8080:8080 \
-    -e KEYCLOAK_USER=admin \
-    -e KEYCLOAK_PASSWORD=admin \
-    -e DB_VENDOR=mysql \
-    -e DB_ADDR=mysql \
-    -e DB_DATABASE=keycloak \
-    -e DB_USER=keycloak \
-    -e DB_PASSWORD=password \
-    -e JDBC_PARAMS=useSSL=false \
-    --network keycloak-net \
-    ivanfranchin/keycloak-clustered:latest
-    ```
+- Finally, open another terminal and run `keycloak-clustered-2` Docker container
+  ```
+  docker run --rm --name keycloak-clustered-2 -p 8081:8080 \
+  -e KEYCLOAK_USER=admin \
+  -e KEYCLOAK_PASSWORD=admin \
+  -e DB_VENDOR=mysql \
+  -e DB_ADDR=mysql \
+  -e DB_DATABASE=keycloak \
+  -e DB_USER=keycloak \
+  -e DB_PASSWORD=password \
+  -e JDBC_PARAMS=useSSL=false \
+  --network keycloak-net \
+  ivanfranchin/keycloak-clustered:latest
+  ```
 
-  - Run `keycloak-clustered-2`
-    ```
-    docker run -d --rm --name keycloak-clustered-2 -p 8081:8080 \
-    -e KEYCLOAK_USER=admin \
-    -e KEYCLOAK_PASSWORD=admin \
-    -e DB_VENDOR=mysql \
-    -e DB_ADDR=mysql \
-    -e DB_DATABASE=keycloak \
-    -e DB_USER=keycloak \
-    -e DB_PASSWORD=password \
-    -e JDBC_PARAMS=useSSL=false \
-    --network keycloak-net \
-    ivanfranchin/keycloak-clustered:latest
-    ```
+### Testing
 
-- Using `Postgres` as database setting `DB_SCHEMA`
-
-  - Start [Postgres](https://hub.docker.com/_/postgres) container
-    ```
-    docker run -d --rm --name postgres -p 5432:5432 \
-    -e POSTGRES_DB=keycloak \
-    -e POSTGRES_USER=keycloak \
-    -e POSTGRES_PASSWORD=password \
-    --network keycloak-net \
-    postgres:13.2
-    ```
-
-  - Access `psql` terminal inside Docker container and create Schema called `myschema`
-    ```
-    docker exec -it postgres psql -U keycloak
-    keycloak=# CREATE SCHEMA myschema;
-    ```
-    > **Note:** To get out of `psql` terminal type `\q`
-
-  - Run `keycloak-clustered-1`
-    ```
-    docker run -d --rm --name keycloak-clustered-1 -p 8080:8080 \
-    -e KEYCLOAK_USER=admin \
-    -e KEYCLOAK_PASSWORD=admin \
-    -e DB_VENDOR=postgres \
-    -e DB_ADDR=postgres \
-    -e DB_DATABASE=keycloak \
-    -e DB_SCHEMA=myschema \
-    -e DB_USER=keycloak \
-    -e DB_PASSWORD=password \
-    -e JDBC_PARAMS=useSSL=false \
-    --network keycloak-net \
-    ivanfranchin/keycloak-clustered:latest
-    ```
-
-  - Run `keycloak-clustered-2`
-    ```
-    docker run -d --rm --name keycloak-clustered-2 -p 8081:8080 \
-    -e KEYCLOAK_USER=admin \
-    -e KEYCLOAK_PASSWORD=admin \
-    -e DB_VENDOR=postgres \
-    -e DB_ADDR=postgres \
-    -e DB_DATABASE=keycloak \
-    -e DB_SCHEMA=myschema \
-    -e DB_USER=keycloak \
-    -e DB_PASSWORD=password \
-    -e JDBC_PARAMS=useSSL=false \
-    --network keycloak-net \
-    ivanfranchin/keycloak-clustered:latest
-    ```
-
-### Check if keycloak-clustered instances are sharing user sessions
-
-  - Open two different browsers, for instance Chrome and Safari or Chrome and Incognito Chrome. In one access `http://localhost:8080/auth/admin/` and, in another, `http://localhost:8081/auth/admin/` 
-   
-  - Login with the following credentials
-    ```
-    username: admin
-    password: admin
-    ```
-   
-  - Once logged in, on the menu on the left, click on `Users` and then on `View All` button. The `admin` will appear. Then, click on `admin`'s `Edit` button and, finally, click on `Sessions` tab. You should see that `admin` has two sessions.
+In order to test it, have a look at [How to check if keycloak-clustered instances are sharing user sessions](#how-to-check-if-keycloak-clustered-instances-are-sharing-user-sessions)
 
 ### Teardown
 
- - Remove containers
+- To stop `keycloak-clustered-1` and `keycloak-clustered-2` Docker containers, press `Ctrl+C` in their terminals;
 
-   - Using `MySQL` as database
-     ```
-     docker stop keycloak-clustered-1 keycloak-clustered-2 mysql
-     ```
+- To stop `mysql` Docker container, press `Ctrl+\` in its terminal;
 
-   - Using `Postgres` as database
-     ```
-     docker stop keycloak-clustered-1 keycloak-clustered-2 postgres
-     ```
+- To remove Docker network, run in a terminal
+  ```
+  docker network rm keycloak-net
+  ```
 
- - Remove network
-   ```
-   docker network rm keycloak-net
-   ```
+## Running a Keycloak Cluster using JDBC_PING in a local Docker network
 
-## Running a Keycloak Cluster using JDBC_PING OR TCPPING in Virtual Machines
+### Prerequisites
+
+- [`Docker`](https://www.docker.com/)
+
+### Startup
+
+- Open a terminal and create a Docker network
+  ```
+  docker network create keycloak-net
+  ```
+
+- Then, run [Postgres](https://hub.docker.com/_/postgres) Docker container
+  ```
+  docker run --rm --name postgres -p 5432:5432 \
+  -e POSTGRES_DB=keycloak \
+  -e POSTGRES_USER=keycloak \
+  -e POSTGRES_PASSWORD=password \
+  --network keycloak-net \
+  postgres:13.2
+  ```
+
+- Open another terminal and run `keycloak-clustered-1` Docker container
+  ```
+  docker run --rm --name keycloak-clustered-1 -p 8080:8080 \
+  -e KEYCLOAK_USER=admin \
+  -e KEYCLOAK_PASSWORD=admin \
+  -e DB_VENDOR=postgres \
+  -e DB_ADDR=postgres \
+  -e DB_DATABASE=keycloak \
+  -e DB_SCHEMA=myschema \
+  -e DB_USER=keycloak \
+  -e DB_PASSWORD=password \
+  -e JDBC_PARAMS=useSSL=false \
+  -e JGROUPS_DISCOVERY_EXTERNAL_IP=keycloak-clustered-1 \
+  -e JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING \
+  -e JGROUPS_DISCOVERY_PROPERTIES=datasource_jndi_name=java:jboss/datasources/KeycloakDS \
+  --network keycloak-net \
+  ivanfranchin/keycloak-clustered:latest
+  ```
+
+- Finally, open another terminal and run `keycloak-clustered-2` Docker container
+  ```
+  docker run --rm --name keycloak-clustered-2 -p 8081:8080 \
+  -e KEYCLOAK_USER=admin \
+  -e KEYCLOAK_PASSWORD=admin \
+  -e DB_VENDOR=postgres \
+  -e DB_ADDR=postgres \
+  -e DB_DATABASE=keycloak \
+  -e DB_SCHEMA=myschema \
+  -e DB_USER=keycloak \
+  -e DB_PASSWORD=password \
+  -e JDBC_PARAMS=useSSL=false \
+  -e JGROUPS_DISCOVERY_EXTERNAL_IP=keycloak-clustered-2 \
+  -e JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING \
+  -e JGROUPS_DISCOVERY_PROPERTIES=datasource_jndi_name=java:jboss/datasources/KeycloakDS \
+  --network keycloak-net \
+  ivanfranchin/keycloak-clustered:latest
+  ```
+
+### Testing
+
+In order to test it, have a look at [How to check if keycloak-clustered instances are sharing user sessions](#how-to-check-if-keycloak-clustered-instances-are-sharing-user-sessions)
+
+### Check database
+
+- Access `psql` terminal inside `postgres` Docker container 
+  ```
+  docker exec -it postgres psql -U keycloak
+  ```
+
+- List tables in `myschema` schema
+  ```
+  keycloak=# \dt myschema.*
+  ```
+
+- Select entries in `JGROUPSPING` table
+  ```
+  keycloak=# SELECT * FROM myschema.JGROUPSPING;
+  ```
+
+- To exit `psql` terminal type `\q`
+
+### Teardown
+
+- To stop `postgres`, `keycloak-clustered-1` and `keycloak-clustered-2` Docker containers, press `Ctrl+C` in their terminals;
+
+- To remove Docker network, run in a terminal
+  ```
+  docker network rm keycloak-net
+  ```
+
+## Running a Keycloak Cluster using JDBC_PING or TCPPING in Virtual Machines
 
 ### Prerequisites
 
@@ -246,7 +278,7 @@ Please, refer to the official `jboss/keycloak` documentation at https://hub.dock
   ```
   > **Note:** To get out of the logging view press `Ctrl+C` and to exit the virtual machine type `exit`
 
-- Check the databases
+- Check databases if you are using `JDBC_PING`
   ```
   vagrant ssh databases
   ```
@@ -256,57 +288,34 @@ Please, refer to the official `jboss/keycloak` documentation at https://hub.dock
     ```
     vagrant@vagrant:~$ docker exec -it mysql mysql -ukeycloak -ppassword --database=keycloak
     mysql> show tables;
+    mysql> SELECT * FROM JGROUPSPING;
     ```
-    > **Note 1:** If you are using `JDBC_PING`, you can select `JGROUPSPING` table and see the machine records
-    >
-    > ```
-    > SELECT * FROM JGROUPSPING;
-    > ```
-    >
-    > **Note 2:** To exit type `exit`
+    > **Note:** To exit type `exit`
 
   - MariaDB
     ```
     vagrant@vagrant:~$ docker exec -it mariadb mysql -ukeycloak -ppassword --database=keycloak
     MariaDB [keycloak]> show tables;
+    MariaDB [keycloak]> SELECT * FROM JGROUPSPING;
     ```
-    > **Note 1:** If you are using `JDBC_PING`, you can select `JGROUPSPING` table and see the machine records 
-    >
-    > ```
-    > SELECT * FROM JGROUPSPING;
-    > ```
-    >
-    > **Note 2:** To exit type `exit`
+    > **Note:** To exit type `exit`
      
   - Postgres
     ```
     vagrant@vagrant:~$ docker exec -it postgres psql -U keycloak
     keycloak=# \dt *.*
+    
+    -- `public` schema
+    keycloak=# SELECT * FROM JGROUPSPING;
+    
+    -- in case the schema `myschema` was set
+    keycloak=# SELECT * FROM myschema.JGROUPSPING;
     ```
-    > **Note 1:** If you are using `JDBC_PING`, you can select `JGROUPSPING` table and see the machine records
-    >
-    > ```
-    > SELECT * FROM JGROUPSPING;
-    > ```
-    > 
-    > If you set a `DB_SCHEMA`, for instance `myschema`, the select should be
-    > ```
-    > SELECT * FROM myschema.JGROUPSPING;
-    > ```
-    >
-    > **Note 2:** To exit type `\q`
+    > **Note:** To exit type `\q`
 
-### Check if keycloak-clustered instances are sharing user sessions 
+### Testing
 
-  - Open two different browsers, for instance Chrome and Safari or Chrome and Incognito Chrome. In one access `http://localhost:8080/auth/admin/` and, in another, `http://localhost:8081/auth/admin/` 
-   
-  - Login with the following credentials
-    ```
-    username: admin
-    password: admin
-    ```
-   
-   - Once logged in, on the menu on the left, click on `Users` and then on `View All` button. The `admin` will appear. Then, click on `admin`'s `Edit` button and, finally, click on `Sessions` tab. You should see that `admin` has two sessions.
+In order to test it, have a look at [How to check if keycloak-clustered instances are sharing user sessions](#how-to-check-if-keycloak-clustered-instances-are-sharing-user-sessions)
 
 ### Using another discovery protocol
 
