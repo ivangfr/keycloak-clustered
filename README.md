@@ -42,7 +42,8 @@ JGROUPS_DISCOVERY_PROPERTIES=initial_hosts="10.0.0.11[7600],10.0.0.12[7600]"
 
 ## Supported tags and respective Dockerfile links
 
-- `12.0.4`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/12.0.4/Dockerfile))
+- `13.0.1`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/13.0.1/Dockerfile))
+- `12.0.4` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/12.0.4/Dockerfile))
 
 ## Author
 
@@ -73,7 +74,7 @@ Please, refer to the official `jboss/keycloak` documentation at https://hub.dock
 
 - Once logged in
   - Click `Users` present on the menu on the left; 
-  - Then, click `View All` button. The `admin` will appear;
+  - Click `View All` button. The `admin` will appear;
   - Click `admin`'s `Edit` button;
   - Finally, click `Sessions` tab. You should see that `admin` has two sessions.
 
@@ -133,7 +134,7 @@ Please, refer to the official `jboss/keycloak` documentation at https://hub.dock
 
 ### Testing
 
-In order to test it, have a look at [How to check if keycloak-clustered instances are sharing user sessions](#how-to-check-if-keycloak-clustered-instances-are-sharing-user-sessions)
+In order to test it, have a look at [How to check if keycloak-clustered instances are sharing user sessions](#how-to-check-if-keycloak-instances-are-sharing-user-sessions)
 
 ### Teardown
 
@@ -209,7 +210,7 @@ In order to test it, have a look at [How to check if keycloak-clustered instance
 
 ### Testing
 
-In order to test it, have a look at [How to check if keycloak-clustered instances are sharing user sessions](#how-to-check-if-keycloak-clustered-instances-are-sharing-user-sessions)
+In order to test it, have a look at [How to check if keycloak-clustered instances are sharing user sessions](#how-to-check-if-keycloak-instances-are-sharing-user-sessions)
 
 ### Check database
 
@@ -315,7 +316,7 @@ In order to test it, have a look at [How to check if keycloak-clustered instance
 
 ### Testing
 
-In order to test it, have a look at [How to check if keycloak-clustered instances are sharing user sessions](#how-to-check-if-keycloak-clustered-instances-are-sharing-user-sessions)
+In order to test it, have a look at [How to check if keycloak-clustered instances are sharing user sessions](#how-to-check-if-keycloak-instances-are-sharing-user-sessions)
 
 ### Using another discovery protocol
 
