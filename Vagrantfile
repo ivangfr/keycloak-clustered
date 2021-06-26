@@ -2,7 +2,7 @@
 
  DISCOVERY_PROTOCOL = "JDBC_PING"  # Options: "JDBC_PING" | "TCPPING"
  BUILD_DOCKER_IMAGE = false        # Options: true | false
-BUILD_IMAGE_VERSION = "13.0.1"
+BUILD_IMAGE_VERSION = "14.0.0"
 # ---
       KEYCLOAK_USER = "admin"
   KEYCLOAK_PASSWORD = "admin"    
@@ -56,11 +56,11 @@ Vagrant.configure("2") do |config|
         args: "-p 3306:3306 -e MYSQL_DATABASE=#{DB_DATABASE} -e MYSQL_USER=#{DB_USER} -e MYSQL_PASSWORD=#{DB_PASSWORD} -e MYSQL_ROOT_PASSWORD=root_password"
 
       d.run "mariadb",
-        image: "mariadb:10.5.9",
+        image: "mariadb:10.5.11",
         args: "-p 3307:3306 -e MYSQL_DATABASE=#{DB_DATABASE} -e MYSQL_USER=#{DB_USER} -e MYSQL_PASSWORD=#{DB_PASSWORD} -e MYSQL_ROOT_PASSWORD=root_password"
 
       d.run "postgres",
-        image: "postgres:13.2",
+        image: "postgres:13.3",
         args: "-p 5432:5432 -e POSTGRES_DB=#{DB_DATABASE} -e POSTGRES_USER=#{DB_USER} -e POSTGRES_PASSWORD=#{DB_PASSWORD}"
     end
   end

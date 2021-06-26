@@ -42,7 +42,8 @@ JGROUPS_DISCOVERY_PROPERTIES=initial_hosts="10.0.0.11[7600],10.0.0.12[7600]"
 
 ## Supported tags and respective Dockerfile links
 
-- `13.0.1`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/13.0.1/Dockerfile))
+- `14.0.0`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/14.0.0/Dockerfile))
+- `13.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/13.0.1/Dockerfile))
 - `12.0.4` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/12.0.4/Dockerfile))
 
 ## Author
@@ -64,7 +65,9 @@ Please, refer to the official `jboss/keycloak` documentation at https://hub.dock
 
 ## How to check if Keycloak instances are sharing user sessions
 
-- Open two different browsers, for instance `Chrome` and `Safari` or `Chrome` and `Incognito Chrome`. In one access `http://localhost:8080/auth/admin/` and, in another, `http://localhost:8081/auth/admin/`
+- Open two different browsers, for instance `Chrome` and `Safari` or `Chrome` and `Incognito Chrome`.
+  
+- In one access `http://localhost:8080/auth/admin/` and, in another, `http://localhost:8081/auth/admin/`
 
 - Login with the following credentials
   ```
@@ -91,7 +94,7 @@ Please, refer to the official `jboss/keycloak` documentation at https://hub.dock
   docker network create keycloak-net
   ```
 
-- Then, run [MySQL](https://hub.docker.com/_/mysql) Docker container
+- Run [MySQL](https://hub.docker.com/_/mysql) Docker container
   ```
   docker run --rm --name mysql -p 3306:3306 \
   -e MYSQL_DATABASE=keycloak \
@@ -160,14 +163,14 @@ In order to test it, have a look at [How to check if keycloak-clustered instance
   docker network create keycloak-net
   ```
 
-- Then, run [Postgres](https://hub.docker.com/_/postgres) Docker container
+- Run [Postgres](https://hub.docker.com/_/postgres) Docker container
   ```
   docker run --rm --name postgres -p 5432:5432 \
   -e POSTGRES_DB=keycloak \
   -e POSTGRES_USER=keycloak \
   -e POSTGRES_PASSWORD=password \
   --network keycloak-net \
-  postgres:13.2
+  postgres:13.3
   ```
 
 - Open another terminal and run `keycloak-clustered-1` Docker container
