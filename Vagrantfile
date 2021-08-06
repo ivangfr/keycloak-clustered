@@ -2,7 +2,7 @@
 
  DISCOVERY_PROTOCOL = "JDBC_PING"  # Options: "JDBC_PING" | "TCPPING"
  BUILD_DOCKER_IMAGE = false        # Options: true | false
-BUILD_IMAGE_VERSION = "14.0.0"
+BUILD_IMAGE_VERSION = "15.0.0"
 # ---
       KEYCLOAK_USER = "admin"
   KEYCLOAK_PASSWORD = "admin"    
@@ -52,7 +52,7 @@ Vagrant.configure("2") do |config|
     v.vm.network :private_network, ip: DATABASE_IP
     v.vm.provision "docker" do |d|
       d.run "mysql",
-        image: "mysql:5.7.34",
+        image: "mysql:5.7.35",
         args: "-p 3306:3306 -e MYSQL_DATABASE=#{DB_DATABASE} -e MYSQL_USER=#{DB_USER} -e MYSQL_PASSWORD=#{DB_PASSWORD} -e MYSQL_ROOT_PASSWORD=root_password"
 
       d.run "mariadb",
