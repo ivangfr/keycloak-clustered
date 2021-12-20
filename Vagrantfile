@@ -2,7 +2,7 @@
 
  DISCOVERY_PROTOCOL = "JDBC_PING"  # Options: "JDBC_PING" | "TCPPING"
  BUILD_DOCKER_IMAGE = false        # Options: true | false
-BUILD_IMAGE_VERSION = "15.0.2"
+BUILD_IMAGE_VERSION = "15.1.1"
 # ---
       KEYCLOAK_USER = "admin"
   KEYCLOAK_PASSWORD = "admin"    
