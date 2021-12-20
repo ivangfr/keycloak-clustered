@@ -42,7 +42,8 @@ JGROUPS_DISCOVERY_PROPERTIES=initial_hosts="10.0.0.11[7600],10.0.0.12[7600]"
 
 ## Supported tags and respective Dockerfile links
 
-- `15.1.1`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/15.1.1/Dockerfile))
+- `16.1.0`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/16.1.0/Dockerfile))
+- `15.1.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/15.1.1/Dockerfile))
 - `15.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/15.0.2/Dockerfile))
 - `15.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/15.0.1/Dockerfile)) 
 - `15.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/15.0.0/Dockerfile))
@@ -106,7 +107,7 @@ Please, refer to the official `jboss/keycloak` documentation at https://hub.dock
   -e MYSQL_PASSWORD=password \
   -e MYSQL_ROOT_PASSWORD=root_password \
   --network keycloak-net \
-  mysql:5.7.35
+  mysql:5.7.36
   ```
 
 - Open another terminal and run `keycloak-clustered-1` Docker container
@@ -174,7 +175,7 @@ In order to test it, have a look at [How to check if keycloak-clustered instance
   -e POSTGRES_USER=keycloak \
   -e POSTGRES_PASSWORD=password \
   --network keycloak-net \
-  postgres:13.4
+  postgres:14.1
   ```
 
 - Open another terminal and run `keycloak-clustered-1` Docker container
