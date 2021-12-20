@@ -42,7 +42,8 @@ JGROUPS_DISCOVERY_PROPERTIES=initial_hosts="10.0.0.11[7600],10.0.0.12[7600]"
 
 ## Supported tags and respective Dockerfile links
 
-- `15.0.2`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/15.0.2/Dockerfile))
+- `15.1.1`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/15.1.1/Dockerfile))
+- `15.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/15.0.2/Dockerfile))
 - `15.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/15.0.1/Dockerfile)) 
 - `15.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/15.0.0/Dockerfile))
 - `14.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/14.0.0/Dockerfile))
