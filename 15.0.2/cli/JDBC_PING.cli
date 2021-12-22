@@ -39,7 +39,10 @@ if (outcome == success && result == oracle) of /subsystem=datasources/data-sourc
 end-if
 
 if (outcome == success && result == sqlserver) of /subsystem=datasources/data-source=KeycloakDS:read-attribute(name=driver-name)
-    echo "Database sqlserver not supported yet"
+    /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=initialize_sql:add(value="IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_TYPE='BASE TABLE' AND TABLE_NAME='JGROUPSPING') CREATE TABLE ${env.DB_SCHEMA:public}.JGROUPSPING ( own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, bind_addr varchar(200) NOT NULL, updated datetime2 default getdate(), ping_data varbinary(5000), constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name))")
+    /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=insert_single_sql:add(value="INSERT INTO ${env.DB_SCHEMA:public}.JGROUPSPING (own_addr, bind_addr, cluster_name, updated, ping_data) values (?, '${jgroups.tcp.address:127.0.0.1}', ?, GETDATE(), ?)")
+    /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=delete_single_sql:add(value="DELETE FROM ${env.DB_SCHEMA:public}.JGROUPSPING WHERE own_addr=? AND cluster_name=?")
+    /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=select_all_pingdata_sql:add(value="SELECT ping_data, own_addr, cluster_name FROM ${env.DB_SCHEMA:public}.JGROUPSPING WHERE cluster_name=?")
 end-if
 
 try
