@@ -24,12 +24,15 @@ if (outcome == success) of /subsystem=jgroups/stack=tcp/protocol=MPING:read-reso
 end-if
 
 if (outcome == success && (result == mysql || result == mariadb)) of /subsystem=datasources/data-source=KeycloakDS:read-attribute(name=driver-name)
-    /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=initialize_sql:add(value="CREATE TABLE IF NOT EXISTS JGROUPSPING (own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, ping_data varbinary(5000) DEFAULT NULL, PRIMARY KEY (own_addr, cluster_name)) ENGINE=InnoDB DEFAULT CHARSET=utf8")
+    /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=initialize_sql:add(value="CREATE TABLE IF NOT EXISTS JGROUPSPING (own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, bind_addr varchar(200) NOT NULL, updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, ping_data varbinary(5000) DEFAULT NULL, PRIMARY KEY (own_addr, cluster_name)) ENGINE=InnoDB DEFAULT CHARSET=utf8")
+    /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=insert_single_sql:add(value="INSERT INTO JGROUPSPING (own_addr, cluster_name, bind_addr, updated, ping_data) values (?, ?, '${jgroups.tcp.address:127.0.0.1}', NOW(), ?)")
+    /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=delete_single_sql:add(value="DELETE FROM JGROUPSPING WHERE own_addr=? AND cluster_name=?")
+    /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=select_all_pingdata_sql:add(value="SELECT ping_data, own_addr, cluster_name FROM JGROUPSPING WHERE cluster_name=?")
 end-if
 
 if (outcome == success && result == postgresql) of /subsystem=datasources/data-source=KeycloakDS:read-attribute(name=driver-name)
-    /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=initialize_sql:add(value="CREATE SCHEMA IF NOT EXISTS ${env.DB_SCHEMA:public}; CREATE TABLE IF NOT EXISTS ${env.DB_SCHEMA:public}.JGROUPSPING ( own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, updated timestamp default current_timestamp, ping_data BYTEA, constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name))")
-    /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=insert_single_sql:add(value="INSERT INTO ${env.DB_SCHEMA:public}.JGROUPSPING (own_addr, cluster_name, updated, ping_data) values (?, ?, NOW(), ?)")
+    /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=initialize_sql:add(value="CREATE SCHEMA IF NOT EXISTS ${env.DB_SCHEMA:public}; CREATE TABLE IF NOT EXISTS ${env.DB_SCHEMA:public}.JGROUPSPING (own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, bind_addr varchar(200) NOT NULL, updated timestamp default current_timestamp, ping_data BYTEA, constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name))")
+    /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=insert_single_sql:add(value="INSERT INTO ${env.DB_SCHEMA:public}.JGROUPSPING (own_addr, cluster_name, bind_addr, updated, ping_data) values (?, ?, '${jgroups.tcp.address:127.0.0.1}', NOW(), ?)")
     /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=delete_single_sql:add(value="DELETE FROM ${env.DB_SCHEMA:public}.JGROUPSPING WHERE own_addr=? AND cluster_name=?")
     /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=select_all_pingdata_sql:add(value="SELECT ping_data, own_addr, cluster_name FROM ${env.DB_SCHEMA:public}.JGROUPSPING WHERE cluster_name=?")
 end-if
@@ -39,8 +42,8 @@ if (outcome == success && result == oracle) of /subsystem=datasources/data-sourc
 end-if
 
 if (outcome == success && result == sqlserver) of /subsystem=datasources/data-source=KeycloakDS:read-attribute(name=driver-name)
-    /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=initialize_sql:add(value="IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = '${env.DB_SCHEMA:dbo}') BEGIN EXEC ('CREATE SCHEMA [${env.DB_SCHEMA:dbo}] AUTHORIZATION [dbo]') END; CREATE TABLE ${env.DB_SCHEMA:dbo}.JGROUPSPING (own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, bind_addr varchar(200) NOT NULL, updated datetime2 default getdate(), ping_data varbinary(5000), constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name))")
-    /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=insert_single_sql:add(value="INSERT INTO ${env.DB_SCHEMA:dbo}.JGROUPSPING (own_addr, bind_addr, cluster_name, updated, ping_data) values (?, '${jgroups.tcp.address:127.0.0.1}', ?, GETDATE(), ?)")
+    /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=initialize_sql:add(value="IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = '${env.DB_SCHEMA:dbo}') BEGIN EXEC ('CREATE SCHEMA [${env.DB_SCHEMA:dbo}] AUTHORIZATION [dbo]') END; IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' AND TABLE_NAME='JGROUPSPING') CREATE TABLE ${env.DB_SCHEMA:dbo}.JGROUPSPING (own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, bind_addr varchar(200) NOT NULL, updated datetime2 default getdate(), ping_data varbinary(5000), constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name))")
+    /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=insert_single_sql:add(value="INSERT INTO ${env.DB_SCHEMA:dbo}.JGROUPSPING (own_addr, cluster_name, bind_addr, updated, ping_data) values (?, ?, '${jgroups.tcp.address:127.0.0.1}', GETDATE(), ?)")
     /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=delete_single_sql:add(value="DELETE FROM ${env.DB_SCHEMA:dbo}.JGROUPSPING WHERE own_addr=? AND cluster_name=?")
     /subsystem=jgroups/stack=tcp/protocol=JDBC_PING/property=select_all_pingdata_sql:add(value="SELECT ping_data, own_addr, cluster_name FROM ${env.DB_SCHEMA:dbo}.JGROUPSPING WHERE cluster_name=?")
 end-if

@@ -52,7 +52,7 @@ Vagrant.configure("2") do |config|
     v.vm.network :private_network, ip: DATABASE_IP
     v.vm.provision "docker" do |d|
       d.run "mysql",
-        image: "mysql:5.7.36",
+        image: "mysql:5.7.37",
         args: "-p 3306:3306 -e MYSQL_DATABASE=#{DB_DATABASE} -e MYSQL_USER=#{DB_USER} -e MYSQL_PASSWORD=#{DB_PASSWORD} -e MYSQL_ROOT_PASSWORD=root_password"
 
       d.run "mariadb",
