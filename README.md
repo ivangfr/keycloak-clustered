@@ -170,7 +170,7 @@ docker build -t keycloak-clustered:development .
   -e POSTGRES_USER=keycloak \
   -e POSTGRES_PASSWORD=password \
   --network keycloak-net \
-  postgres:14.1
+  postgres:14.2
   ```
 
   Open another terminal and run `keycloak-clustered-1` Docker container

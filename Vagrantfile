@@ -60,7 +60,7 @@ Vagrant.configure("2") do |config|
         args: "-p 3307:3306 -e MYSQL_DATABASE=#{DB_DATABASE} -e MYSQL_USER=#{DB_USER} -e MYSQL_PASSWORD=#{DB_PASSWORD} -e MYSQL_ROOT_PASSWORD=root_password"
 
       d.run "postgres",
-        image: "postgres:14.1",
+        image: "postgres:14.2",
         args: "-p 5432:5432 -e POSTGRES_DB=#{DB_DATABASE} -e POSTGRES_USER=#{DB_USER} -e POSTGRES_PASSWORD=#{DB_PASSWORD}"
     end
   end
