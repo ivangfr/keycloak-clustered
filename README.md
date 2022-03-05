@@ -4,7 +4,7 @@
 
 ## Supported tags and respective Dockerfile links
 
-- `17.0.0`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/17.0.0/Dockerfile))
+- `17.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/keycloak-quarkus/17.0.0/Dockerfile))
 
 ## Author
 
@@ -213,7 +213,7 @@ docker network rm keycloak-net
 
 ### Using Postgres
 
-> **WARNING**: It is not working! See [Issues](#issues) section 
+> **Warning**: It is not working! See [Issues](#issues) section 
 
 #### Startup
 
@@ -298,7 +298,7 @@ docker network rm keycloak-net
 
 ### Using Microsoft SQL Server
 
-> **WARNING**: It is not working! See [Issues](#issues) section
+> **Warning**: It is not working! See [Issues](#issues) section
 
 #### Startup
 
