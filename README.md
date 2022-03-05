@@ -1,9 +1,9 @@
 # keycloak-clustered
 
 ---
-- ### The newest Keycloak-Quarkus version
+- ### Keycloak-Quarkus version 17
 
-  In order to use the newest Keycloak-Quarkus version, see [keycloak-quarkus](https://github.com/ivangfr/keycloak-clustered/tree/keycloak-quarkus) branch.
+  In order to use the newest **Keycloak-Quarkus** version **17** with **JDBC_PING**, see [keycloak-quarkus](https://github.com/ivangfr/keycloak-clustered/tree/keycloak-quarkus) branch.
 ---
 
 **Keycloak-Clustered** extends [`Keycloak Official Docker Image`](https://hub.docker.com/r/jboss/keycloak). It allows running easily a cluster of [Keycloak](https://www.keycloak.org) instances.
