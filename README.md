@@ -1,5 +1,11 @@
 # keycloak-clustered
 
+---
+- ### The newest Keycloak-Quarkus version
+
+  In order to use the newest Keycloak-Quarkus version, see [keycloak-quarkus](https://github.com/ivangfr/keycloak-clustered/tree/keycloak-quarkus) branch.
+---
+
 **Keycloak-Clustered** extends [`Keycloak Official Docker Image`](https://hub.docker.com/r/jboss/keycloak). It allows running easily a cluster of [Keycloak](https://www.keycloak.org) instances.
 
 The current `Keycloak Official Docker Image` supports `PING` discovery protocol out of the box. However, `PING` just works when the Keycloak docker containers are running in the same host or data center. If you have Keycloak containers running in different hosts or data centers you must use `JDBC_PING` or `TCPPING`.
