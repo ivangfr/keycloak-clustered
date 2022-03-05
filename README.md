@@ -106,7 +106,7 @@ Access `MySQL monitor` terminal inside `mysql` Docker container
 docker exec -it mysql mysql -ukeycloak -ppassword --database keycloak
 ```
 
-List tables in `myschema` schema
+List tables
 ```
 mysql> show tables;
 ```
@@ -188,7 +188,7 @@ Access `MariaDB monitor` terminal inside `mariadb` Docker container
 docker exec -it mariadb mysql -ukeycloak -ppassword --database keycloak
 ```
 
-List tables in `myschema` schema
+List tables
 ```
 MariaDB [keycloak]> show tables;
 ```
