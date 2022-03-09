@@ -381,6 +381,153 @@ To remove Docker network, run in a terminal
 docker network rm keycloak-net
 ```
 
+## Running a Keycloak Cluster using JDBC_PING in Virtual Machines
+
+### Prerequisites
+
+[`VirtualBox`](https://www.virtualbox.org/) and [`Vagrant`](https://www.vagrantup.com/docs/installation)
+
+### Startup
+
+Open a terminal and make sure you are in `keycloak-clustered` root folder
+
+You can edit `Vagrantfile` and set the database and/or the discovery protocol to be used
+
+Start the virtual machines by running the command below
+```
+vagrant up
+```
+
+> **Mac Users**
+>
+> If you have an error like the one below
+> ```
+> The IP address configured for the host-only network is not within the
+> allowed ranges. Please update the address used to be within the allowed
+> ranges and run the command again.
+>
+>   Address: 10.0.0.1
+>   Ranges: 123.456.78.0/21
+>
+> Valid ranges can be modified in the /etc/vbox/networks.conf file. For
+> more information including valid format see:
+>
+>   https://www.virtualbox.org/manual/ch06.html#network_hostonly
+> ```
+>
+> Create a new file at `/etc/vbox/networks.conf` on your Mac with content
+> ```
+> * 10.0.0.0/8 123.456.78.0/21
+> * 2001::/64
+> ```
+
+Wait a bit until the virtual machines get started. It will take some time.
+
+Once the execution of the command `vagrant up` finishes, we can check the state of all active Vagrant environments
+```
+vagrant status
+```
+
+Check `keycloak-clustered` docker logs in `keycloak1` virtual machine
+```
+vagrant ssh keycloak1
+vagrant@vagrant:~$ docker logs keycloak-clustered -f
+```
+> **Note:** To get out of the logging view press `Ctrl+C` and to exit the virtual machine type `exit`
+
+Check `keycloak-clustered` docker logs in `keycloak2` virtual machine
+```
+vagrant ssh keycloak2
+vagrant@vagrant:~$ docker logs keycloak-clustered -f
+```
+> **Note:** To get out of the logging view press `Ctrl+C` and to exit the virtual machine type `exit`
+
+Check databases if you are using `JDBC_PING`
+```
+vagrant ssh databases
+```
+> **Note:** To exit the virtual machine type `exit`
+
+- MySQL
+  ```
+  vagrant@vagrant:~$ docker exec -it mysql mysql -ukeycloak -ppassword --database keycloak
+  mysql> show tables;
+  mysql> SELECT * FROM JGROUPSPING;
+  ```
+  > **Note:** To exit type `exit`
+
+- MariaDB
+  ```
+  vagrant@vagrant:~$ docker exec -it mariadb mysql -ukeycloak -ppassword --database keycloak
+  MariaDB [keycloak]> show tables;
+  MariaDB [keycloak]> SELECT * FROM JGROUPSPING;
+  ```
+  > **Note:** To exit type `exit`
+
+- Postgres
+  ```
+  vagrant@vagrant:~$ docker exec -it postgres psql -U keycloak
+  keycloak=# \dt *.*
+    
+  -- `public` schema
+  keycloak=# SELECT * FROM JGROUPSPING;
+    
+  -- in case the schema `myschema` was set
+  keycloak=# SELECT * FROM myschema.JGROUPSPING;
+  ```
+  > **Note:** To exit type `\q`
+
+### Testing
+
+In order to test it, have a look at [How to check if keycloak-clustered instances are sharing user sessions](#how-to-check-if-keycloak-instances-are-sharing-user-sessions)
+
+### Using another database
+
+Edit `Vagrantfile` by setting to `DB_VENDOR` variable the database to be used
+
+Reload Keycloak virtual machines by running
+```
+vagrant reload keycloak1 keycloak2 --provision
+```
+
+### Teardown
+
+#### Suspend the machines
+
+Suspending the virtual machines will stop them and save their current running state. For it run
+```
+vagrant suspend
+```
+
+To bring the virtual machines back up run
+```
+vagrant up
+```
+
+#### Halt the machines
+
+Halting the virtual machines will gracefully shut down the guest operating system and power down the guest machine
+```
+vagrant halt
+```
+
+It preserves the contents of disk and allows to start it again by running
+```
+vagrant up
+```
+
+#### Destroy the machines
+
+Destroying the virtual machine will remove all traces of the guest machine from your system. It'll stop the guest machine, power it down, and reclaim its disk space and RAM.
+```
+vagrant destroy -f
+```
+
+For a complete clean up, you can remove Vagrant box used in this section
+```
+vagrant box remove hashicorp/bionic64
+```
+
 ## Issues
 
 ### Postgres
