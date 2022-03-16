@@ -22,6 +22,7 @@
         xmlns="urn:infinispan:config:11.0">
     <jgroups>
         <stack name="mysql-jdbc-ping-tcp" extends="tcp">
+            <TCP external_addr="${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}" />
             <JDBC_PING connection_driver="com.mysql.jdbc.Driver"
                        connection_username="${env.KC_DB_USERNAME}" connection_password="${env.KC_DB_PASSWORD}"
                        connection_url="jdbc:mysql://${env.KC_DB_URL_HOST}/${env.KC_DB_URL_DATABASE}"
@@ -35,6 +36,7 @@
                        stack.position="MPING" />
         </stack>
         <stack name="mariadb-jdbc-ping-tcp" extends="tcp">
+            <TCP external_addr="${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}" />
             <JDBC_PING connection_driver="com.mysql.jdbc.Driver"
                        connection_username="${env.KC_DB_USERNAME}" connection_password="${env.KC_DB_PASSWORD}"
                        connection_url="jdbc:mysql://${env.KC_DB_URL_HOST}/${env.KC_DB_URL_DATABASE}"
@@ -48,6 +50,7 @@
                        stack.position="MPING" />
         </stack>
         <stack name="postgres-jdbc-ping-tcp" extends="tcp">
+            <TCP external_addr="${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}" />
             <JDBC_PING connection_driver="org.postgresql.Driver"
                        connection_username="${env.KC_DB_USERNAME}" connection_password="${env.KC_DB_PASSWORD}"
                        connection_url="jdbc:postgresql://${env.KC_DB_URL_HOST}/${env.KC_DB_URL_DATABASE}"
@@ -61,6 +64,7 @@
                        stack.position="MPING" />
         </stack>
         <stack name="mssql-jdbc-ping-tcp" extends="tcp">
+            <TCP external_addr="${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}" />
             <JDBC_PING connection_driver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
                        connection_username="${env.KC_DB_USERNAME}" connection_password="${env.KC_DB_PASSWORD}"
                        connection_url="jdbc:sqlserver://${env.KC_DB_URL_HOST}/${env.KC_DB_URL_DATABASE}"

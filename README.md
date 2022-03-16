@@ -25,7 +25,7 @@ docker build -t keycloak-clustered:development .
 
 1. Open two different browsers, for instance `Chrome` and `Safari` or `Chrome` and `Incognito Chrome`.
 
-1. In one access `http://localhost:8080/auth/admin/` and, in another, `http://localhost:8081/auth/admin/`
+1. In one access `http://localhost:8080/admin/` and, in another, `http://localhost:8081/admin/`
 
 1. Login with the following credentials
    ```
@@ -76,6 +76,7 @@ docker run --rm --name keycloak-clustered-1 -p 8080:8080 \
   -e KC_DB_USERNAME=keycloak \
   -e KC_DB_PASSWORD=password \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
+  -e JGROUPS_DISCOVERY_EXTERNAL_IP=keycloak-clustered-1 \
   --network keycloak-net \
   ivanfranchin/keycloak-clustered:17.0.0 start-dev
 ```
@@ -91,6 +92,7 @@ docker run --rm --name keycloak-clustered-2 -p 8081:8080 \
   -e KC_DB_USERNAME=keycloak \
   -e KC_DB_PASSWORD=password \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
+  -e JGROUPS_DISCOVERY_EXTERNAL_IP=keycloak-clustered-2 \
   --network keycloak-net \
   ivanfranchin/keycloak-clustered:17.0.0 start-dev
 ```
@@ -158,6 +160,7 @@ docker run --rm --name keycloak-clustered-1 -p 8080:8080 \
   -e KC_DB_USERNAME=keycloak \
   -e KC_DB_PASSWORD=password \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
+  -e JGROUPS_DISCOVERY_EXTERNAL_IP=keycloak-clustered-1 \
   --network keycloak-net \
   ivanfranchin/keycloak-clustered:17.0.0 start-dev
 ```
@@ -173,6 +176,7 @@ docker run --rm --name keycloak-clustered-2 -p 8081:8080 \
   -e KC_DB_USERNAME=keycloak \
   -e KC_DB_PASSWORD=password \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
+  -e JGROUPS_DISCOVERY_EXTERNAL_IP=keycloak-clustered-2 \
   --network keycloak-net \
   ivanfranchin/keycloak-clustered:17.0.0 start-dev
 ```
@@ -244,6 +248,7 @@ docker run --rm --name keycloak-clustered-1 -p 8080:8080 \
   -e KC_DB_USERNAME=keycloak \
   -e KC_DB_PASSWORD=password \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
+  -e JGROUPS_DISCOVERY_EXTERNAL_IP=keycloak-clustered-1 \
   --network keycloak-net \
   ivanfranchin/keycloak-clustered:17.0.0 start-dev
 ```
@@ -260,6 +265,7 @@ docker run --rm --name keycloak-clustered-2 -p 8081:8080 \
   -e KC_DB_USERNAME=keycloak \
   -e KC_DB_PASSWORD=password \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
+  -e JGROUPS_DISCOVERY_EXTERNAL_IP=keycloak-clustered-2 \
   --network keycloak-net \
   ivanfranchin/keycloak-clustered:17.0.0 start-dev
 ```
@@ -333,6 +339,7 @@ docker run --rm --name keycloak-clustered-1 -p 8080:8080 \
   -e KC_DB_USERNAME=SA \
   -e KC_DB_PASSWORD=my_Password \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
+  -e JGROUPS_DISCOVERY_EXTERNAL_IP=keycloak-clustered-1 \
   --network keycloak-net \
   ivanfranchin/keycloak-clustered:17.0.0 start-dev
 ```
@@ -349,6 +356,7 @@ docker run --rm --name keycloak-clustered-2 -p 8081:8080 \
   -e KC_DB_USERNAME=SA \
   -e KC_DB_PASSWORD=my_Password \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
+  -e JGROUPS_DISCOVERY_EXTERNAL_IP=keycloak-clustered-2 \
   --network keycloak-net \
   ivanfranchin/keycloak-clustered:17.0.0 start-dev
 ```

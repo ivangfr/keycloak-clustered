@@ -1,7 +1,7 @@
 # -- PARAMETERS --------------------------------------------------------------------------------------------------------
 
      DISCOVERY_PROTOCOL = "JDBC_PING"
-     BUILD_DOCKER_IMAGE = true        # Options: true | false
+     BUILD_DOCKER_IMAGE = false        # Options: true | false
     BUILD_IMAGE_VERSION = "17.0.0"
 # ---
          KEYCLOAK_ADMIN = "admin"
