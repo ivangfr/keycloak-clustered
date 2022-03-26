@@ -4,6 +4,7 @@
 
 ## Supported tags and respective Dockerfile links
 
+- `17.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/keycloak-quarkus/17.0.1/Dockerfile))
 - `17.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/keycloak-quarkus/17.0.0/Dockerfile))
 
 ## Author
@@ -78,7 +79,7 @@ docker run --rm --name keycloak-clustered-1 -p 8080:8080 \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
   -e JGROUPS_DISCOVERY_EXTERNAL_IP=keycloak-clustered-1 \
   --network keycloak-net \
-  ivanfranchin/keycloak-clustered:17.0.0 start-dev
+  ivanfranchin/keycloak-clustered:17.0.1 start-dev
 ```
 
 Finally, open another terminal and run `keycloak-clustered-2` Docker container
@@ -94,7 +95,7 @@ docker run --rm --name keycloak-clustered-2 -p 8081:8080 \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
   -e JGROUPS_DISCOVERY_EXTERNAL_IP=keycloak-clustered-2 \
   --network keycloak-net \
-  ivanfranchin/keycloak-clustered:17.0.0 start-dev
+  ivanfranchin/keycloak-clustered:17.0.1 start-dev
 ```
 
 #### Testing
@@ -162,7 +163,7 @@ docker run --rm --name keycloak-clustered-1 -p 8080:8080 \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
   -e JGROUPS_DISCOVERY_EXTERNAL_IP=keycloak-clustered-1 \
   --network keycloak-net \
-  ivanfranchin/keycloak-clustered:17.0.0 start-dev
+  ivanfranchin/keycloak-clustered:17.0.1 start-dev
 ```
 
 Finally, open another terminal and run `keycloak-clustered-2` Docker container
@@ -178,7 +179,7 @@ docker run --rm --name keycloak-clustered-2 -p 8081:8080 \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
   -e JGROUPS_DISCOVERY_EXTERNAL_IP=keycloak-clustered-2 \
   --network keycloak-net \
-  ivanfranchin/keycloak-clustered:17.0.0 start-dev
+  ivanfranchin/keycloak-clustered:17.0.1 start-dev
 ```
 
 #### Testing
@@ -250,7 +251,7 @@ docker run --rm --name keycloak-clustered-1 -p 8080:8080 \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
   -e JGROUPS_DISCOVERY_EXTERNAL_IP=keycloak-clustered-1 \
   --network keycloak-net \
-  ivanfranchin/keycloak-clustered:17.0.0 start-dev
+  ivanfranchin/keycloak-clustered:17.0.1 start-dev
 ```
 
 Finally, open another terminal and run `keycloak-clustered-2` Docker container
@@ -267,7 +268,7 @@ docker run --rm --name keycloak-clustered-2 -p 8081:8080 \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
   -e JGROUPS_DISCOVERY_EXTERNAL_IP=keycloak-clustered-2 \
   --network keycloak-net \
-  ivanfranchin/keycloak-clustered:17.0.0 start-dev
+  ivanfranchin/keycloak-clustered:17.0.1 start-dev
 ```
 
 #### Testing
@@ -341,7 +342,7 @@ docker run --rm --name keycloak-clustered-1 -p 8080:8080 \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
   -e JGROUPS_DISCOVERY_EXTERNAL_IP=keycloak-clustered-1 \
   --network keycloak-net \
-  ivanfranchin/keycloak-clustered:17.0.0 start-dev
+  ivanfranchin/keycloak-clustered:17.0.1 start-dev
 ```
 
 Finally, open another terminal and run `keycloak-clustered-2` Docker container
@@ -358,7 +359,7 @@ docker run --rm --name keycloak-clustered-2 -p 8081:8080 \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
   -e JGROUPS_DISCOVERY_EXTERNAL_IP=keycloak-clustered-2 \
   --network keycloak-net \
-  ivanfranchin/keycloak-clustered:17.0.0 start-dev
+  ivanfranchin/keycloak-clustered:17.0.1 start-dev
 ```
 
 #### Testing
