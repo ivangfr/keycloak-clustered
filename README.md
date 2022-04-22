@@ -1,11 +1,5 @@
 # keycloak-clustered
 
----
-- ### Keycloak-Quarkus version 17
-
-  In order to use the newest **Keycloak-Quarkus** version **17** with **JDBC_PING**, see [keycloak-quarkus](https://github.com/ivangfr/keycloak-clustered/tree/keycloak-quarkus) branch.
----
-
 **Keycloak-Clustered** extends [`Keycloak Official Docker Image`](https://hub.docker.com/r/jboss/keycloak). It allows running easily a cluster of [Keycloak](https://www.keycloak.org) instances.
 
 The current `Keycloak Official Docker Image` supports `PING` discovery protocol out of the box. However, `PING` just works when the Keycloak docker containers are running in the same host or data center. If you have Keycloak containers running in different hosts or data centers you must use `JDBC_PING` or `TCPPING`.
@@ -48,8 +42,8 @@ JGROUPS_DISCOVERY_PROPERTIES=initial_hosts="10.0.0.11[7600],10.0.0.12[7600]"
 
 ## Supported tags and respective Dockerfile links
 
-- `16.1.1`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/16.1.1/Dockerfile))
-- `16.1.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/16.1.0/Dockerfile))
+- `16.1.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/keycloak-legacy/16.1.1/Dockerfile))
+- `16.1.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/keycloak-legacy/16.1.0/Dockerfile))
 
 ## Author
 
@@ -122,7 +116,7 @@ docker build -t keycloak-clustered:development .
   -e DB_PASSWORD=password \
   -e JDBC_PARAMS=useSSL=false \
   --network keycloak-net \
-  ivanfranchin/keycloak-clustered:latest
+  ivanfranchin/keycloak-clustered:16.1.1
   ```
 
   Finally, open another terminal and run `keycloak-clustered-2` Docker container
@@ -137,7 +131,7 @@ docker build -t keycloak-clustered:development .
   -e DB_PASSWORD=password \
   -e JDBC_PARAMS=useSSL=false \
   --network keycloak-net \
-  ivanfranchin/keycloak-clustered:latest
+  ivanfranchin/keycloak-clustered:16.1.1
   ```
 
 - #### Testing
@@ -196,7 +190,7 @@ docker build -t keycloak-clustered:development .
   -e JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING \
   -e JGROUPS_DISCOVERY_PROPERTIES=datasource_jndi_name=java:jboss/datasources/KeycloakDS \
   --network keycloak-net \
-  ivanfranchin/keycloak-clustered:latest
+  ivanfranchin/keycloak-clustered:16.1.1
   ```
 
   Finally, open another terminal and run `keycloak-clustered-2` Docker container
@@ -215,7 +209,7 @@ docker build -t keycloak-clustered:development .
   -e JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING \
   -e JGROUPS_DISCOVERY_PROPERTIES=datasource_jndi_name=java:jboss/datasources/KeycloakDS \
   --network keycloak-net \
-  ivanfranchin/keycloak-clustered:latest
+  ivanfranchin/keycloak-clustered:16.1.1
   ```
 
 - #### Testing
@@ -289,7 +283,7 @@ docker build -t keycloak-clustered:development .
   -e JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING \
   -e JGROUPS_DISCOVERY_PROPERTIES=datasource_jndi_name=java:jboss/datasources/KeycloakDS \
   --network keycloak-net \
-  ivanfranchin/keycloak-clustered:latest
+  ivanfranchin/keycloak-clustered:16.1.1
   ```
 
   Finally, open another terminal and run `keycloak-clustered-2` Docker container
@@ -308,7 +302,7 @@ docker build -t keycloak-clustered:development .
   -e JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING \
   -e JGROUPS_DISCOVERY_PROPERTIES=datasource_jndi_name=java:jboss/datasources/KeycloakDS \
   --network keycloak-net \
-  ivanfranchin/keycloak-clustered:latest
+  ivanfranchin/keycloak-clustered:16.1.1
   ```
 
 - #### Testing
