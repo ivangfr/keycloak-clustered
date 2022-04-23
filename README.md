@@ -4,7 +4,8 @@
 
 ## Supported tags and respective Dockerfile links
 
-- `17.0.1`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/17.0.1/Dockerfile))
+- `18.0.0`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/18.0.0/Dockerfile))
+- `17.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/17.0.1/Dockerfile))
 - `17.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/17.0.0/Dockerfile))
 
 ## Author
@@ -106,7 +107,7 @@ In order to test it, have a look at [How to check if keycloak-clustered instance
 
 Access `MySQL monitor` terminal inside `mysql` Docker container
 ```
-docker exec -it mysql mysql -ukeycloak -ppassword --database keycloak
+docker exec -it -e MYSQL_PWD="password" mysql mysql -ukeycloak --database keycloak
 ```
 
 List tables
@@ -147,7 +148,7 @@ docker run --rm --name mariadb -p 3306:3306 \
   -e MYSQL_PASSWORD=password \
   -e MYSQL_ROOT_PASSWORD=root_password \
   --network keycloak-net \
-  mariadb:10.6.5
+  mariadb:10.7.3
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
