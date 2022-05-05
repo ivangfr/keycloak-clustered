@@ -64,7 +64,7 @@ docker run --rm --name mysql -p 3306:3306 \
   -e MYSQL_PASSWORD=password \
   -e MYSQL_ROOT_PASSWORD=root_password \
   --network keycloak-net \
-  mysql:5.7.37
+  mysql:5.7.38
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
@@ -107,7 +107,7 @@ In order to test it, have a look at [How to check if keycloak-clustered instance
 
 Access `MySQL monitor` terminal inside `mysql` Docker container
 ```
-docker exec -it -e MYSQL_PWD="password" mysql mysql -ukeycloak --database keycloak
+docker exec -it -e MYSQL_PWD=password mysql mysql -ukeycloak --database keycloak
 ```
 
 List tables
@@ -460,7 +460,7 @@ vagrant ssh databases
 
 - MySQL
   ```
-  vagrant@vagrant:~$ docker exec -it mysql mysql -ukeycloak -ppassword --database keycloak
+  vagrant@vagrant:~$ docker exec -it -e MYSQL_PWD=password mysql mysql -ukeycloak --database keycloak
   mysql> show tables;
   mysql> SELECT * FROM JGROUPSPING;
   ```
