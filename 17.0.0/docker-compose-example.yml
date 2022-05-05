@@ -1,0 +1,51 @@
+#just an example, it will not work out of the box#
+version: '2'
+volumes:
+  keycloak_postgres0_data:
+    external: true
+    driver: netapp
+
+services:
+  keycloak:
+    mem_limit: 4294967296
+    mem_reservation: 2147483648
+    image: eeacms/eea-keycloak:tag
+    environment:
+
+      KC_DB: changeme
+      KC_DB_PASSWORD: changeme
+      KC_DB_SCHEMA: public
+      KC_DB_URL: jdbc:postgresql://pg-0:5432/changeme?currentSchema=public
+      KC_DB_URL_DATABASE: changeme
+      KC_DB_URL_HOST: pg-0
+      KC_DB_USERNAME: changeme
+      KEYCLOAK_ADMIN: changeme
+      KEYCLOAK_ADMIN_PASSWORD: changeme
+      PROXY_ADDRESS_FORWARDING: 'true'
+      TZ: Europe/Copenhagen
+
+      AUTH_CACHE_OWNERS_COUNT: '3'
+      CACHE_OWNERS_COUNT: '3'
+    command:
+    - start
+    - --http-enabled=true
+    - --http-port=8080
+    - --http-host=0.0.0.0
+    - --hostname=whatever.com
+    - --hostname-strict-https=false
+    - --db-url-host=pg-0
+    - -Dkc.db=postgres
+    - --db-username=changeme
+    - --db-password=changeme
+    - --db-schema=public
+    - --db-url-database=changeme
+    - --proxy=passthrough
+    - -Dkeycloak.profile.feature.upload_scripts=enabled
+    - --cache=ispn
+    - --auto-build
+    - --metrics-enabled=true
+
+  #change your db backend as you wish 
+  pg-0:
+    image: docker.io/bitnami/postgresql-repmgr:13
+    #do your settings as you like.
