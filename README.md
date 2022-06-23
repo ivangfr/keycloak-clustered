@@ -4,7 +4,8 @@
 
 ## Supported tags and respective Dockerfile links
 
-- `18.0.0`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/18.0.0/Dockerfile))
+- `18.0.1`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/18.0.1/Dockerfile))
+- `18.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/18.0.0/Dockerfile))
 - `17.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/17.0.1/Dockerfile))
 - `17.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/17.0.0/Dockerfile))
 
@@ -219,8 +220,6 @@ docker network rm keycloak-net
 
 ### Using Postgres
 
-> **Warning**: It is not working! See [Issues](#issues) section 
-
 #### Startup
 
 Open a terminal and create a Docker network
@@ -235,7 +234,7 @@ docker run --rm --name postgres -p 5432:5432 \
   -e POSTGRES_USER=keycloak \
   -e POSTGRES_PASSWORD=password \
   --network keycloak-net \
-  postgres:14.2
+  postgres:14.3
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
@@ -540,15 +539,6 @@ vagrant box remove hashicorp/bionic64
 
 ## Issues
 
-### Postgres
-
-The following error is happening. Maybe, it's related to this [issue #10235](https://github.com/keycloak/keycloak/issues/10235)
-```
-ERROR [org.keycloak.quarkus.runtime.cli.ExecutionExceptionHandler] (main) ERROR: org.hibernate.exception.SQLGrammarException: could not extract ResultSet
-ERROR [org.keycloak.quarkus.runtime.cli.ExecutionExceptionHandler] (main) ERROR: could not extract ResultSet
-ERROR [org.keycloak.quarkus.runtime.cli.ExecutionExceptionHandler] (main) ERROR: ERROR: relation "migration_model" does not exist
-```
-
 ### Microsoft SQL Server
 
 The following exception is thrown. It looks like **Keycloak** cannot communicate with **Microsoft SQL Server** through port `1433`
@@ -571,12 +561,12 @@ ERROR [org.jgroups.protocols.JDBC_PING] (keycloak-cache-init) JGRP000115: Could 
 	at org.jgroups.stack.ProtocolStack.initProtocolStack(ProtocolStack.java:854)
 	at org.jgroups.stack.ProtocolStack.init(ProtocolStack.java:842)
 	at org.jgroups.JChannel.<init>(JChannel.java:164)
-	at org.infinispan.remoting.transport.jgroups.EmbeddedJGroupsChannelConfigurator.createChannel(EmbeddedJGroupsChannelConfigurator.java:128)
-	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.channelFromConfigurator(JGroupsTransport.java:694)
-	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.buildChannel(JGroupsTransport.java:666)
-	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.initChannel(JGroupsTransport.java:478)
-	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.start(JGroupsTransport.java:463)
-	at org.infinispan.remoting.transport.jgroups.CorePackageImpl$1.start(CorePackageImpl.java:41)
+	at org.infinispan.remoting.transport.jgroups.EmbeddedJGroupsChannelConfigurator.createChannel(EmbeddedJGroupsChannelConfigurator.java:136)
+	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.channelFromConfigurator(JGroupsTransport.java:708)
+	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.buildChannel(JGroupsTransport.java:679)
+	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.initChannel(JGroupsTransport.java:491)
+	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.start(JGroupsTransport.java:472)
+	at org.infinispan.remoting.transport.jgroups.CorePackageImpl$1.start(CorePackageImpl.java:42)
 	at org.infinispan.remoting.transport.jgroups.CorePackageImpl$1.start(CorePackageImpl.java:27)
 	at org.infinispan.factories.impl.BasicComponentRegistryImpl.invokeStart(BasicComponentRegistryImpl.java:617)
 	at org.infinispan.factories.impl.BasicComponentRegistryImpl.doStartWrapper(BasicComponentRegistryImpl.java:608)
@@ -598,10 +588,10 @@ ERROR [org.jgroups.protocols.JDBC_PING] (keycloak-cache-init) JGRP000115: Could 
 	at org.infinispan.factories.impl.BasicComponentRegistryImpl$ComponentWrapper.running(BasicComponentRegistryImpl.java:808)
 	at org.infinispan.factories.AbstractComponentRegistry.internalStart(AbstractComponentRegistry.java:354)
 	at org.infinispan.factories.AbstractComponentRegistry.start(AbstractComponentRegistry.java:250)
-	at org.infinispan.manager.DefaultCacheManager.internalStart(DefaultCacheManager.java:752)
-	at org.infinispan.manager.DefaultCacheManager.start(DefaultCacheManager.java:720)
-	at org.infinispan.manager.DefaultCacheManager.<init>(DefaultCacheManager.java:401)
-	at org.keycloak.quarkus.runtime.storage.infinispan.CacheManagerFactory.startCacheManager(CacheManagerFactory.java:72)
+	at org.infinispan.manager.DefaultCacheManager.internalStart(DefaultCacheManager.java:766)
+	at org.infinispan.manager.DefaultCacheManager.start(DefaultCacheManager.java:734)
+	at org.infinispan.manager.DefaultCacheManager.<init>(DefaultCacheManager.java:405)
+	at org.keycloak.quarkus.runtime.storage.infinispan.CacheManagerFactory.startCacheManager(CacheManagerFactory.java:86)
 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
