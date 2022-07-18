@@ -4,7 +4,8 @@
 
 ## Supported tags and respective Dockerfile links
 
-- `18.0.1`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/18.0.1/Dockerfile))
+- `18.0.2`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/18.0.2/Dockerfile))
+- `18.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/18.0.1/Dockerfile))
 - `18.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/18.0.0/Dockerfile))
 - `17.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/17.0.1/Dockerfile))
 - `17.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/17.0.0/Dockerfile))
@@ -149,7 +150,7 @@ docker run --rm --name mariadb -p 3306:3306 \
   -e MYSQL_PASSWORD=password \
   -e MYSQL_ROOT_PASSWORD=root_password \
   --network keycloak-net \
-  mariadb:10.7.3
+  mariadb:10.8.3
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
@@ -234,7 +235,7 @@ docker run --rm --name postgres -p 5432:5432 \
   -e POSTGRES_USER=keycloak \
   -e POSTGRES_PASSWORD=password \
   --network keycloak-net \
-  postgres:14.3
+  postgres:14.4
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
@@ -320,7 +321,7 @@ docker run --rm --name mssql -p 1433:1433 \
   -e ACCEPT_EULA=Y \
   -e SA_PASSWORD=my_Password \
   --network keycloak-net \
-  mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04
+  mcr.microsoft.com/mssql/server:2019-CU16-ubuntu-20.04
 ```
 
 Open another terminal and run the following command to create `keycloak` database
