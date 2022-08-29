@@ -4,7 +4,8 @@
 
 ## Supported tags and respective Dockerfile links
 
-- `18.0.2`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/18.0.2/Dockerfile))
+- `19.0.1`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/19.0.1/Dockerfile))
+- `18.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/18.0.2/Dockerfile))
 - `18.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/18.0.1/Dockerfile))
 - `18.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/18.0.0/Dockerfile))
 - `17.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/17.0.1/Dockerfile))
@@ -22,7 +23,7 @@ Please, refer to the official **Keycloak** documentation at https://www.keycloak
 
 Navigate into one oof the version folders and run the following command
 ```
-docker build -t keycloak-clustered:development .
+docker build -t ivanfranchin/keycloak-clustered:latest .
 ```
 
 ## How to check if Keycloak instances are sharing user sessions
@@ -38,10 +39,8 @@ docker build -t keycloak-clustered:development .
    ```
 
 1. Once logged in
-  - Click `Users` present on the menu on the left;
-  - Click `View All` button. The `admin` will appear;
-  - Click `admin`'s `Edit` button;
-  - Finally, click `Sessions` tab. You should see that `admin` has two sessions.
+  - Click `Sessions` present on the menu on the left;
+  - You should see that `admin` has two sessions.
 
 ## Running a Keycloak Cluster using JDBC_PING
 
@@ -66,7 +65,7 @@ docker run --rm --name mysql -p 3306:3306 \
   -e MYSQL_PASSWORD=password \
   -e MYSQL_ROOT_PASSWORD=root_password \
   --network keycloak-net \
-  mysql:5.7.38
+  mysql:5.7.39
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
@@ -150,7 +149,7 @@ docker run --rm --name mariadb -p 3306:3306 \
   -e MYSQL_PASSWORD=password \
   -e MYSQL_ROOT_PASSWORD=root_password \
   --network keycloak-net \
-  mariadb:10.8.3
+  mariadb:10.9.2
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
@@ -235,7 +234,7 @@ docker run --rm --name postgres -p 5432:5432 \
   -e POSTGRES_USER=keycloak \
   -e POSTGRES_PASSWORD=password \
   --network keycloak-net \
-  postgres:14.4
+  postgres:14.5
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
