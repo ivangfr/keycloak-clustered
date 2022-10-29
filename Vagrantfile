@@ -2,7 +2,7 @@
 
      DISCOVERY_PROTOCOL = "JDBC_PING"
      BUILD_DOCKER_IMAGE = false        # Options: true | false
-    BUILD_IMAGE_VERSION = "19.0.2"
+    BUILD_IMAGE_VERSION = "19.0.3"
 # ---
          KEYCLOAK_ADMIN = "admin"
 KEYCLOAK_ADMIN_PASSWORD = "admin"
@@ -45,15 +45,15 @@ Vagrant.configure("2") do |config|
     v.vm.network "private_network", ip: DATABASE_IP
     v.vm.provision "docker" do |d|
       d.run "mysql",
-        image: "mysql:5.7.39",
+        image: "mysql:5.7.40",
         args: "-p 3306:3306 -e MYSQL_DATABASE=#{KC_DB_URL_DATABASE} -e MYSQL_USER=#{KC_DB_USERNAME} -e MYSQL_PASSWORD=#{KC_DB_PASSWORD} -e MYSQL_ROOT_PASSWORD=root_password"
 
       d.run "mariadb",
-        image: "mariadb:10.9.2",
+        image: "mariadb:10.9.3",
         args: "-p 3307:3306 -e MYSQL_DATABASE=#{KC_DB_URL_DATABASE} -e MYSQL_USER=#{KC_DB_USERNAME} -e MYSQL_PASSWORD=#{KC_DB_PASSWORD} -e MYSQL_ROOT_PASSWORD=root_password"
 
       d.run "postgres",
-        image: "postgres:14.5",
+        image: "postgres:15.0",
         args: "-p 5432:5432 -e POSTGRES_DB=#{KC_DB_URL_DATABASE} -e POSTGRES_USER=#{KC_DB_USERNAME} -e POSTGRES_PASSWORD=#{KC_DB_PASSWORD}"
     end
   end
