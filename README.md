@@ -4,7 +4,8 @@
 
 ## Supported tags and respective Dockerfile links
 
-- `19.0.3`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/19.0.3/Dockerfile))
+- `20.0.0`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/20.0.0/Dockerfile))
+- `19.0.3` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/19.0.3/Dockerfile))
 - `19.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/19.0.2/Dockerfile))
 - `19.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/19.0.1/Dockerfile))
 - `18.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/18.0.2/Dockerfile))
@@ -32,7 +33,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
 
 1. Open two different browsers, for instance `Chrome` and `Safari` or `Chrome` and `Incognito Chrome`.
 
-1. In one access `http://localhost:8080/admin/` and, in another, `http://localhost:8081/admin/`
+1. In one access http://localhost:8080/admin/ and, in another, http://localhost:8081/admin/
 
 1. Login with the following credentials
    ```
