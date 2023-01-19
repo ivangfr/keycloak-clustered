@@ -4,7 +4,8 @@
 
 ## Supported tags and respective Dockerfile links
 
-- `20.0.2`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/20.0.2/Dockerfile))
+- `20.0.3`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/20.0.3/Dockerfile))
+- `20.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/20.0.2/Dockerfile))
 - `20.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/20.0.1/Dockerfile))
 - `20.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/20.0.0/Dockerfile))
 - `19.0.3` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/19.0.3/Dockerfile))
