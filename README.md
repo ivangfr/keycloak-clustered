@@ -4,7 +4,8 @@
 
 ## Supported tags and respective Dockerfile links
 
-- `20.0.3`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/20.0.3/Dockerfile))
+- `21.0.0`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/21.0.0/Dockerfile))
+- `20.0.3` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/20.0.3/Dockerfile))
 - `20.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/20.0.2/Dockerfile))
 - `20.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/20.0.1/Dockerfile))
 - `20.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/20.0.0/Dockerfile))
@@ -71,7 +72,7 @@ docker run --rm --name mysql -p 3306:3306 \
   -e MYSQL_PASSWORD=password \
   -e MYSQL_ROOT_PASSWORD=root_password \
   --network keycloak-net \
-  mysql:5.7.40
+  mysql:5.7.41
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
@@ -155,7 +156,7 @@ docker run --rm --name mariadb -p 3306:3306 \
   -e MYSQL_PASSWORD=password \
   -e MYSQL_ROOT_PASSWORD=root_password \
   --network keycloak-net \
-  mariadb:10.9.3
+  mariadb:10.9.5
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
@@ -240,7 +241,7 @@ docker run --rm --name postgres -p 5432:5432 \
   -e POSTGRES_USER=keycloak \
   -e POSTGRES_PASSWORD=password \
   --network keycloak-net \
-  postgres:15.0
+  postgres:15.2
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
