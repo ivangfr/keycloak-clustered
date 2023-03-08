@@ -326,9 +326,9 @@ Run [Microsoft SQL Server](https://hub.docker.com/_/microsoft-mssql-server) Dock
 ```
 docker run --rm --name mssql -p 1433:1433 \
   -e ACCEPT_EULA=Y \
-  -e SA_PASSWORD=my_Password \
+  -e MSSQL_SA_PASSWORD=my_Password \
   --network keycloak-net \
-  mcr.microsoft.com/mssql/server:2019-CU16-ubuntu-20.04
+  mcr.microsoft.com/mssql/server:2022-CU1-ubuntu-20.04
 ```
 
 Open another terminal and run the following command to create `keycloak` database
@@ -344,6 +344,7 @@ docker run --rm --name keycloak-clustered-1 -p 8080:8080 \
   -e KC_DB=mssql \
   -e KC_DB_URL_HOST=mssql \
   -e KC_DB_URL_DATABASE=keycloak \
+  -e KC_DB_URL_PROPERTIES=";trustServerCertificate=false;encrypt=false" \
   -e KC_DB_SCHEMA=myschema \
   -e KC_DB_USERNAME=SA \
   -e KC_DB_PASSWORD=my_Password \
@@ -361,6 +362,7 @@ docker run --rm --name keycloak-clustered-2 -p 8081:8080 \
   -e KC_DB=mssql \
   -e KC_DB_URL_HOST=mssql \
   -e KC_DB_URL_DATABASE=keycloak \
+  -e KC_DB_URL_PROPERTIES=";trustServerCertificate=false;encrypt=false" \
   -e KC_DB_SCHEMA=myschema \
   -e KC_DB_USERNAME=SA \
   -e KC_DB_PASSWORD=my_Password \
@@ -551,69 +553,67 @@ vagrant box remove hashicorp/bionic64
 
 ```
 ERROR [org.jgroups.protocols.JDBC_PING] (keycloak-cache-init) JGRP000128: Error clearing table: com.microsoft.sqlserver.jdbc.SQLServerException: Invalid object name 'JGROUPSPING'.
-	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
-	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1621)
-	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:592)
-	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:522)
-	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
-	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2935)
-	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
-	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
-	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.execute(SQLServerPreparedStatement.java:503)
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:265)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1673)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:620)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:540)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7627)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:3912)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:268)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:242)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.execute(SQLServerPreparedStatement.java:518)
 	at org.jgroups.protocols.JDBC_PING.clearTable(JDBC_PING.java:362)
 	at org.jgroups.protocols.JDBC_PING.removeAll(JDBC_PING.java:182)
-	at org.jgroups.protocols.FILE_PING.handleView(FILE_PING.java:184)
-	at org.jgroups.protocols.FILE_PING.down(FILE_PING.java:116)
-	at org.jgroups.protocols.MERGE3.down(MERGE3.java:251)
-	at org.jgroups.protocols.FD_SOCK.down(FD_SOCK.java:378)
-	at org.jgroups.protocols.FailureDetection.down(FailureDetection.java:152)
-	at org.jgroups.protocols.VERIFY_SUSPECT.down(VERIFY_SUSPECT.java:102)
-	at org.jgroups.protocols.pbcast.NAKACK2.down(NAKACK2.java:555)
-	at org.jgroups.protocols.UNICAST3.down(UNICAST3.java:595)
-	at org.jgroups.protocols.pbcast.STABLE.down(STABLE.java:341)
-	at org.jgroups.protocols.pbcast.GMS.installView(GMS.java:714)
-	at org.jgroups.protocols.pbcast.ClientGmsImpl.becomeSingletonMember(ClientGmsImpl.java:257)
-	at org.jgroups.protocols.pbcast.ClientGmsImpl.joinInternal(ClientGmsImpl.java:90)
-	at org.jgroups.protocols.pbcast.ClientGmsImpl.join(ClientGmsImpl.java:41)
-	at org.jgroups.protocols.pbcast.GMS.down(GMS.java:1067)
-	at org.jgroups.protocols.FlowControl.down(FlowControl.java:303)
-	at org.jgroups.protocols.FlowControl.down(FlowControl.java:303)
-	at org.jgroups.protocols.FRAG3.down(FRAG3.java:129)
-	at org.jgroups.stack.ProtocolStack.down(ProtocolStack.java:921)
-	at org.jgroups.JChannel.down(JChannel.java:636)
-	at org.jgroups.JChannel._connect(JChannel.java:860)
-	at org.jgroups.JChannel.connect(JChannel.java:361)
-	at org.jgroups.JChannel.connect(JChannel.java:352)
-	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.startJGroupsChannelIfNeeded(JGroupsTransport.java:553)
-	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.start(JGroupsTransport.java:477)
+	at org.jgroups.protocols.FILE_PING.handleView(FILE_PING.java:206)
+	at org.jgroups.protocols.FILE_PING.down(FILE_PING.java:138)
+	at org.jgroups.protocols.MERGE3.down(MERGE3.java:249)
+	at org.jgroups.protocols.FD_SOCK2.down(FD_SOCK2.java:226)
+	at org.jgroups.protocols.FailureDetection.down(FailureDetection.java:149)
+	at org.jgroups.protocols.VERIFY_SUSPECT2.down(VERIFY_SUSPECT2.java:84)
+	at org.jgroups.protocols.pbcast.NAKACK2.down(NAKACK2.java:619)
+	at org.jgroups.protocols.UNICAST3.down(UNICAST3.java:611)
+	at org.jgroups.protocols.pbcast.STABLE.down(STABLE.java:260)
+	at org.jgroups.protocols.pbcast.GMS.installView(GMS.java:676)
+	at org.jgroups.protocols.pbcast.ClientGmsImpl.becomeSingletonMember(ClientGmsImpl.java:251)
+	at org.jgroups.protocols.pbcast.ClientGmsImpl.joinInternal(ClientGmsImpl.java:86)
+	at org.jgroups.protocols.pbcast.ClientGmsImpl.join(ClientGmsImpl.java:37)
+	at org.jgroups.protocols.pbcast.GMS.down(GMS.java:897)
+	at org.jgroups.protocols.FlowControl.down(FlowControl.java:201)
+	at org.jgroups.protocols.FlowControl.down(FlowControl.java:201)
+	at org.jgroups.stack.Protocol.down(Protocol.java:283)
+	at org.jgroups.protocols.FRAG2.down(FRAG2.java:102)
+	at org.jgroups.stack.ProtocolStack.down(ProtocolStack.java:929)
+	at org.jgroups.JChannel.down(JChannel.java:608)
+	at org.jgroups.JChannel._connect(JChannel.java:808)
+	at org.jgroups.JChannel.connect(JChannel.java:325)
+	at org.jgroups.JChannel.connect(JChannel.java:316)
+	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.startJGroupsChannelIfNeeded(JGroupsTransport.java:621)
+	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.start(JGroupsTransport.java:490)
 	at org.infinispan.remoting.transport.jgroups.CorePackageImpl$1.start(CorePackageImpl.java:42)
 	at org.infinispan.remoting.transport.jgroups.CorePackageImpl$1.start(CorePackageImpl.java:27)
 	at org.infinispan.factories.impl.BasicComponentRegistryImpl.invokeStart(BasicComponentRegistryImpl.java:617)
 	at org.infinispan.factories.impl.BasicComponentRegistryImpl.doStartWrapper(BasicComponentRegistryImpl.java:608)
 	at org.infinispan.factories.impl.BasicComponentRegistryImpl.startWrapper(BasicComponentRegistryImpl.java:577)
-	at org.infinispan.factories.impl.BasicComponentRegistryImpl.access$700(BasicComponentRegistryImpl.java:30)
 	at org.infinispan.factories.impl.BasicComponentRegistryImpl$ComponentWrapper.running(BasicComponentRegistryImpl.java:808)
-	at org.infinispan.metrics.impl.MetricsCollector.start(MetricsCollector.java:70)
+	at org.infinispan.metrics.impl.MetricsCollector.start(MetricsCollector.java:78)
 	at org.infinispan.metrics.impl.CorePackageImpl$1.start(CorePackageImpl.java:41)
 	at org.infinispan.metrics.impl.CorePackageImpl$1.start(CorePackageImpl.java:34)
 	at org.infinispan.factories.impl.BasicComponentRegistryImpl.invokeStart(BasicComponentRegistryImpl.java:617)
 	at org.infinispan.factories.impl.BasicComponentRegistryImpl.doStartWrapper(BasicComponentRegistryImpl.java:608)
 	at org.infinispan.factories.impl.BasicComponentRegistryImpl.startWrapper(BasicComponentRegistryImpl.java:577)
-	at org.infinispan.factories.impl.BasicComponentRegistryImpl.access$700(BasicComponentRegistryImpl.java:30)
 	at org.infinispan.factories.impl.BasicComponentRegistryImpl$ComponentWrapper.running(BasicComponentRegistryImpl.java:808)
 	at org.infinispan.factories.impl.BasicComponentRegistryImpl.startDependencies(BasicComponentRegistryImpl.java:635)
 	at org.infinispan.factories.impl.BasicComponentRegistryImpl.doStartWrapper(BasicComponentRegistryImpl.java:599)
 	at org.infinispan.factories.impl.BasicComponentRegistryImpl.startWrapper(BasicComponentRegistryImpl.java:577)
-	at org.infinispan.factories.impl.BasicComponentRegistryImpl.access$700(BasicComponentRegistryImpl.java:30)
 	at org.infinispan.factories.impl.BasicComponentRegistryImpl$ComponentWrapper.running(BasicComponentRegistryImpl.java:808)
-	at org.infinispan.factories.AbstractComponentRegistry.internalStart(AbstractComponentRegistry.java:354)
+	at org.infinispan.factories.AbstractComponentRegistry.internalStart(AbstractComponentRegistry.java:357)
 	at org.infinispan.factories.AbstractComponentRegistry.start(AbstractComponentRegistry.java:250)
-	at org.infinispan.manager.DefaultCacheManager.internalStart(DefaultCacheManager.java:766)
-	at org.infinispan.manager.DefaultCacheManager.start(DefaultCacheManager.java:734)
-	at org.infinispan.manager.DefaultCacheManager.<init>(DefaultCacheManager.java:405)
-	at org.keycloak.quarkus.runtime.storage.legacy.infinispan.CacheManagerFactory.startCacheManager(CacheManagerFactory.java:86)
+	at org.infinispan.manager.DefaultCacheManager.internalStart(DefaultCacheManager.java:774)
+	at org.infinispan.manager.DefaultCacheManager.start(DefaultCacheManager.java:742)
+	at org.infinispan.manager.DefaultCacheManager.<init>(DefaultCacheManager.java:406)
+	at org.keycloak.quarkus.runtime.storage.legacy.infinispan.CacheManagerFactory.startCacheManager(CacheManagerFactory.java:96)
 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
-	at java.base/java.lang.Thread.run(Thread.java:829)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
 ```
