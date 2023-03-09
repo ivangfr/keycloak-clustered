@@ -12,10 +12,11 @@ MARIADB_VERSION=10.9.5
 POSTGRES_VERSION=15.2
 MSSQL_VERSION=2022-CU1-ubuntu-20.04
 
-source scripts/test-kc-mysql-db-connection.sh
-source scripts/test-kc-mariadb-db-connection.sh
-source scripts/test-kc-postgres-db-connection.sh
-#source scripts/test-kc-mssql-db-connection.sh
+source scripts/test-mysql-kc-db-connection.sh
+source scripts/test-mariadb-kc-db-connection.sh
+source scripts/test-postgres-kc-db-connection.sh
+# -- Unable to run Keycloak Clustered with MSSQL, see issue in README
+#source scripts/test-mssql-kc-db-connection.sh
 
 echo
 echo "+##############################################"
