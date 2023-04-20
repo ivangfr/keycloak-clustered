@@ -2,6 +2,10 @@
 
 **Keycloak-Clustered** extends `quay.io/keycloak/keycloak` official **Keycloak Docker image** by adding **JDBC_PING** discovery protocol
 
+## Tutorials
+
+- \[Medium\] [**Keycloak Cluster using JDBC-PING for Distributed Caching**](https://medium.com/@ivangfr/keycloak-cluster-using-jdbc-ping-for-distributed-caching-8ba5c09cc206)
+
 ## Supported tags and respective Dockerfile links
 
 - `21.1.0`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/21.1.0/Dockerfile))
@@ -16,7 +20,7 @@
 
 ## Author
 
-Ivan Franchin ([LinkedIn](https://www.linkedin.com/in/ivanfranchin)) ([Github](https://github.com/ivangfr))
+Ivan Franchin ([**LinkedIn**](https://www.linkedin.com/in/ivanfranchin)) ([**Github**](https://github.com/ivangfr)) ([**Medium**](https://medium.com/@ivangfr))
 
 ## Environment Variables
 
