@@ -4,7 +4,8 @@
 
 ## Supported tags and respective Dockerfile links
 
-- `21.0.2`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/21.0.2/Dockerfile))
+- `21.1.0`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/21.1.0/Dockerfile))
+- `21.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/21.0.2/Dockerfile))
 - `21.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/21.0.1/Dockerfile))
 - `21.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/21.0.0/Dockerfile))
 - `20.0.5` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/20.0.5/Dockerfile)) 
@@ -23,7 +24,7 @@ Please, refer to the official **Keycloak** documentation at https://www.keycloak
 
 ## How to build locally a development Docker image
 
-Navigate into one oof the version folders and run the following command
+Navigate into one of the version folders and run the following command
 ```
 docker build -t ivanfranchin/keycloak-clustered:latest .
 ```
