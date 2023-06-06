@@ -25,7 +25,7 @@
             <TCP external_addr="${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}" />
             <JDBC_PING connection_driver="com.mysql.jdbc.Driver"
                        connection_username="${env.KC_DB_USERNAME}" connection_password="${env.KC_DB_PASSWORD}"
-                       connection_url="jdbc:mysql://${env.KC_DB_URL_HOST}:${env.KC_DB_URL_PORT:3306}/${env.KC_DB_URL_DATABASE}${env.KC_DB_URL_PROPERTIES:}"
+                       connection_url="jdbc:${env.KC_DB_URL_DATABASE}://${env.KC_DB_URL_HOST}:${env.KC_DB_URL_PORT:3306}/${env.KC_DB_SCHEMA}${env.KC_DB_URL_PROPERTIES:}"
                        initialize_sql="CREATE TABLE IF NOT EXISTS JGROUPSPING (own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, bind_addr varchar(200) NOT NULL, updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, ping_data varbinary(5000) DEFAULT NULL, PRIMARY KEY (own_addr, cluster_name)) ENGINE=InnoDB DEFAULT CHARSET=utf8;"
                        insert_single_sql="INSERT INTO JGROUPSPING (own_addr, cluster_name, bind_addr, updated, ping_data) values (?, ?, '${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}', NOW(), ?);"
                        delete_single_sql="DELETE FROM JGROUPSPING WHERE own_addr=? AND cluster_name=?;"
@@ -39,7 +39,7 @@
             <TCP external_addr="${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}" />
             <JDBC_PING connection_driver="com.mysql.jdbc.Driver"
                        connection_username="${env.KC_DB_USERNAME}" connection_password="${env.KC_DB_PASSWORD}"
-                       connection_url="jdbc:mysql://${env.KC_DB_URL_HOST}:${env.KC_DB_URL_PORT:3306}/${env.KC_DB_URL_DATABASE}${env.KC_DB_URL_PROPERTIES:}"
+                       connection_url="jdbc:${env.KC_DB_URL_DATABASE}://${env.KC_DB_URL_HOST}:${env.KC_DB_URL_PORT:3306}/${env.KC_DB_SCHEMA}${env.KC_DB_URL_PROPERTIES:}"
                        initialize_sql="CREATE TABLE IF NOT EXISTS JGROUPSPING (own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, bind_addr varchar(200) NOT NULL, updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, ping_data varbinary(5000) DEFAULT NULL, PRIMARY KEY (own_addr, cluster_name)) ENGINE=InnoDB DEFAULT CHARSET=utf8;"
                        insert_single_sql="INSERT INTO JGROUPSPING (own_addr, cluster_name, bind_addr, updated, ping_data) values (?, ?, '${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}', NOW(), ?);"
                        delete_single_sql="DELETE FROM JGROUPSPING WHERE own_addr=? AND cluster_name=?;"
@@ -53,7 +53,7 @@
             <TCP external_addr="${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}" />
             <JDBC_PING connection_driver="org.postgresql.Driver"
                        connection_username="${env.KC_DB_USERNAME}" connection_password="${env.KC_DB_PASSWORD}"
-                       connection_url="jdbc:postgresql://${env.KC_DB_URL_HOST}:${env.KC_DB_URL_PORT:5432}/${env.KC_DB_URL_DATABASE}${env.KC_DB_URL_PROPERTIES:}"
+                       connection_url="jdbc:${env.KC_DB_URL_DATABASE}://${env.KC_DB_URL_HOST}:${env.KC_DB_URL_PORT:5432}/${env.KC_DB_SCHEMA}${env.KC_DB_URL_PROPERTIES:}"
                        initialize_sql="CREATE SCHEMA IF NOT EXISTS ${env.KC_DB_SCHEMA:public}; CREATE TABLE IF NOT EXISTS ${env.KC_DB_SCHEMA:public}.JGROUPSPING (own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, bind_addr varchar(200) NOT NULL, updated timestamp default current_timestamp, ping_data BYTEA, constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name));"
                        insert_single_sql="INSERT INTO ${env.KC_DB_SCHEMA:public}.JGROUPSPING (own_addr, cluster_name, bind_addr, updated, ping_data) values (?, ?, '${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}', NOW(), ?);"
                        delete_single_sql="DELETE FROM ${env.KC_DB_SCHEMA:public}.JGROUPSPING WHERE own_addr=? AND cluster_name=?;"
@@ -67,7 +67,7 @@
             <TCP external_addr="${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}" />
             <JDBC_PING connection_driver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
                        connection_username="${env.KC_DB_USERNAME}" connection_password="${env.KC_DB_PASSWORD}"
-                       connection_url="jdbc:sqlserver://${env.KC_DB_URL_HOST}:${env.KC_DB_URL_PORT:1433};databaseName=${env.KC_DB_URL_DATABASE}${env.KC_DB_URL_PROPERTIES:}"
+                       connection_url="jdbc:${env.KC_DB_URL_DATABASE}://${env.KC_DB_URL_HOST}:${env.KC_DB_URL_PORT:1433};databaseName=${env.KC_DB_SCHEMA}${env.KC_DB_URL_PROPERTIES:}"
                        initialize_sql="IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = '${env.KC_DB_SCHEMA:dbo}') BEGIN EXEC ('CREATE SCHEMA [${env.KC_DB_SCHEMA:dbo}] AUTHORIZATION [dbo]') END; IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' AND TABLE_NAME='JGROUPSPING' AND TABLE_SCHEMA='${env.KC_DB_SCHEMA:dbo}') CREATE TABLE ${env.KC_DB_SCHEMA:dbo}.JGROUPSPING (own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, bind_addr varchar(200) NOT NULL, updated datetime2 default getdate(), ping_data varbinary(5000), constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name));"
                        insert_single_sql="INSERT INTO ${env.KC_DB_SCHEMA:dbo}.JGROUPSPING (own_addr, cluster_name, bind_addr, updated, ping_data) values (?, ?, '${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}', GETDATE(), ?);"
                        delete_single_sql="DELETE FROM ${env.KC_DB_SCHEMA:dbo}.JGROUPSPING WHERE own_addr=? AND cluster_name=?;"
