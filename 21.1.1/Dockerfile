@@ -16,6 +16,7 @@ EXPOSE 80
 EXPOSE 57800
 
 ENV JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING
+
 # this should be the IP of the EC2, the IP of the Dockerhost,
 # or the name of the Docker container in a local docker-network
 # or the floating IP in a 
