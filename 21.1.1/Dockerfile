@@ -29,10 +29,11 @@ ENV KC_DB_URL=jdbc:database_vendor://database_host/database_name
 # Example: docker run -p 80:80 this_image
 EXPOSE 80
 
-# Default port for jdbc-ping. Should be accesible in each node (EC2,ECS,...)
+# Default ports for jdbc-ping. Should be accesible in each node (EC2,ECS,...)
 # This should NATed in a container, opened in the firewall,...
 # and manage its security as another service
-# Example: docker run -p 57800:57800 this_image
+# Example: docker run -p 7800:7800 -p 57800:57800 this_image
+EXPOSE 7800
 EXPOSE 57800
 
 # Set your trace level once the service has started
