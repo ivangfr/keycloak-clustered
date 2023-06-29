@@ -14,11 +14,6 @@
 - `21.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/21.0.2/Dockerfile))
 - `21.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/21.0.1/Dockerfile))
 - `21.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/21.0.0/Dockerfile))
-- `20.0.5` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/20.0.5/Dockerfile)) 
-- `20.0.3` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/20.0.3/Dockerfile))
-- `20.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/20.0.2/Dockerfile))
-- `20.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/20.0.1/Dockerfile))
-- `20.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/20.0.0/Dockerfile))
 
 ## Author
 
