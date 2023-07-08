@@ -49,8 +49,8 @@ Vagrant.configure("2") do |config|
         args: "-p 3306:3306 -e MYSQL_DATABASE=#{KC_DB_URL_DATABASE} -e MYSQL_USER=#{KC_DB_USERNAME} -e MYSQL_PASSWORD=#{KC_DB_PASSWORD} -e MYSQL_ROOT_PASSWORD=root_password"
 
       d.run "mariadb",
-        image: "mariadb:11.0.2",
-        args: "-p 3307:3306 -e MYSQL_DATABASE=#{KC_DB_URL_DATABASE} -e MYSQL_USER=#{KC_DB_USERNAME} -e MYSQL_PASSWORD=#{KC_DB_PASSWORD} -e MYSQL_ROOT_PASSWORD=root_password"
+        image: "mariadb:10.11.4",
+        args: "-p 3307:3306 -e MARIADB_DATABASE=#{KC_DB_URL_DATABASE} -e MARIADB_USER=#{KC_DB_USERNAME} -e MARIADB_PASSWORD=#{KC_DB_PASSWORD} -e MARIADB_ROOT_PASSWORD=root_password"
 
       d.run "postgres",
         image: "postgres:15.3",

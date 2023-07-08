@@ -2,7 +2,11 @@
 
 **Keycloak-Clustered** extends `quay.io/keycloak/keycloak` official **Keycloak Docker image** by adding **JDBC_PING** discovery protocol
 
-## Tutorials
+## Proof-of-Concepts & Articles
+
+On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-Concepts (PoCs) and articles. You can easily search for the technology you are interested in by using the filter. Who knows, perhaps I have already implemented a PoC or written an article about what you are looking for.
+
+## Additional Readings
 
 - \[**Medium**\] [**Keycloak Cluster using JDBC-PING for Distributed Caching**](https://medium.com/@ivangfr/keycloak-cluster-using-jdbc-ping-for-distributed-caching-8ba5c09cc206)
 
@@ -148,12 +152,12 @@ docker network create keycloak-net
 Run [MariaDB](https://hub.docker.com/_/mariadb) Docker container
 ```
 docker run --rm --name mariadb -p 3306:3306 \
-  -e MYSQL_DATABASE=keycloak \
-  -e MYSQL_USER=keycloak \
-  -e MYSQL_PASSWORD=password \
-  -e MYSQL_ROOT_PASSWORD=root_password \
+  -e MARIADB_DATABASE=keycloak \
+  -e MARIADB_USER=keycloak \
+  -e MARIADB_PASSWORD=password \
+  -e MARIADB_ROOT_PASSWORD=root_password \
   --network keycloak-net \
-  mariadb:11.0.2
+  mariadb:10.11.4
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
@@ -196,7 +200,7 @@ In order to test it, have a look at [How to check if keycloak-clustered instance
 
 Access `MariaDB monitor` terminal inside `mariadb` Docker container
 ```
-docker exec -it mariadb mysql -ukeycloak -ppassword --database keycloak
+docker exec -it mariadb mariadb -ukeycloak -ppassword --database keycloak
 ```
 
 List tables
