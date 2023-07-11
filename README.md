@@ -9,6 +9,7 @@ On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-C
 ## Additional Readings
 
 - \[**Medium**\] [**Keycloak Cluster using JDBC-PING for Distributed Caching**](https://medium.com/@ivangfr/keycloak-cluster-using-jdbc-ping-for-distributed-caching-8ba5c09cc206)
+- \[**Medium**\] [**Keycloak Cluster Setup with Vagrant, Virtual Machines, and JDBC-PING for Distributed Caching**](https://medium.com/javarevisited/keycloak-cluster-setup-with-vagrant-virtual-machines-and-jdbc-ping-for-distributed-caching-bd09708219d1)
 
 ## Supported tags and respective Dockerfile links
 
