@@ -15,7 +15,8 @@ On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-C
 
 ## Supported tags and respective Dockerfile links
 
-- `22.0.1`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/22.0.1/Dockerfile))
+- `22.0.2`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/22.0.2/Dockerfile))
+- `22.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/22.0.1/Dockerfile))
 - `22.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/22.0.0/Dockerfile))
 - `21.1.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/21.1.2/Dockerfile))
 - `21.1.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/21.1.1/Dockerfile))
@@ -78,7 +79,7 @@ docker run --rm --name mysql -p 3306:3306 \
   -e MYSQL_PASSWORD=password \
   -e MYSQL_ROOT_PASSWORD=root_password \
   --network keycloak-net \
-  mysql:5.7.42
+  mysql:5.7.43
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
@@ -247,7 +248,7 @@ docker run --rm --name postgres -p 5432:5432 \
   -e POSTGRES_USER=keycloak \
   -e POSTGRES_PASSWORD=password \
   --network keycloak-net \
-  postgres:15.3
+  postgres:15.4
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
