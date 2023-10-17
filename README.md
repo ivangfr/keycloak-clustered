@@ -46,15 +46,15 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
 
 1. Open two different browsers, for instance `Chrome` and `Safari` or `Chrome` and `Incognito Chrome`.
 
-1. In one access http://localhost:8080/admin/ and, in another, http://localhost:8081/admin/
+2. In one access http://localhost:8080/admin/ and, in another, http://localhost:8081/admin/
 
-1. Login with the following credentials
+3. Login with the following credentials
    ```
    username: admin
    password: admin
    ```
 
-1. Once logged in
+4. Once logged in
   - Click `Sessions` present on the menu on the left;
   - You should see that `admin` has two sessions.
 
