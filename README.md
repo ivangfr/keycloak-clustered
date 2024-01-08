@@ -29,7 +29,7 @@ On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-C
 
 ## Author
 
-Ivan Franchin ([**LinkedIn**](https://www.linkedin.com/in/ivanfranchin)) ([**Github**](https://github.com/ivangfr)) ([**Medium**](https://medium.com/@ivangfr))
+Ivan Franchin ([**LinkedIn**](https://www.linkedin.com/in/ivanfranchin)) ([**Github**](https://github.com/ivangfr)) ([**Medium**](https://medium.com/@ivangfr)) ([**Twitter**](https://twitter.com/ivangfr))
 
 ## Environment Variables
 
