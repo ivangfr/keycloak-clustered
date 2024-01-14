@@ -20,12 +20,6 @@ On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-C
 - `23.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/23.0.2/Dockerfile))
 - `23.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/23.0.1/Dockerfile))
 - `23.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/23.0.0/Dockerfile))
-- `22.0.5` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/22.0.5/Dockerfile))
-- `22.0.4` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/22.0.4/Dockerfile))
-- `22.0.3` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/22.0.3/Dockerfile))
-- `22.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/22.0.2/Dockerfile))
-- `22.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/22.0.1/Dockerfile))
-- `22.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/22.0.0/Dockerfile))
 
 ## Author
 
