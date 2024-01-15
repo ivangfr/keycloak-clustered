@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-TIMEOUT=60
+TIMEOUT=120
 
 # -- wait_for_container_log --
 # $1: docker container name

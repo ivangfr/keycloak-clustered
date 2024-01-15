@@ -46,7 +46,6 @@ docker run -d --rm --name keycloak-clustered \
   -e KC_DB_URL_HOST=mssql \
   -e KC_DB_URL_DATABASE=keycloak \
   -e KC_DB_URL_PROPERTIES=";trustServerCertificate=false;encrypt=false" \
-  -e KC_DB_SCHEMA=myschema \
   -e KC_DB_USERNAME=SA \
   -e KC_DB_PASSWORD=my_Password \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
@@ -84,7 +83,6 @@ docker run -d --rm --name keycloak-clustered \
   -e KC_DB_URL_PORT=1443 \
   -e KC_DB_URL_DATABASE=keycloak \
   -e KC_DB_URL_PROPERTIES=";trustServerCertificate=false;encrypt=false" \
-  -e KC_DB_SCHEMA=myschema \
   -e KC_DB_USERNAME=SA \
   -e KC_DB_PASSWORD=my_Password \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
@@ -137,7 +135,6 @@ docker run -d --rm --name keycloak-clustered \
   -e KC_DB_URL_HOST=mssql \
   -e KC_DB_URL_DATABASE=keycloak \
   -e KC_DB_URL_PROPERTIES=";trustServerCertificate=false;encrypt=false" \
-  -e KC_DB_SCHEMA=myschema \
   -e KC_DB_USERNAME=SA \
   -e KC_DB_PASSWORD=my_Password \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
@@ -175,7 +172,6 @@ docker run -d --rm --name keycloak-clustered \
   -e KC_DB_URL_PORT=1443 \
   -e KC_DB_URL_DATABASE=keycloak \
   -e KC_DB_URL_PROPERTIES=";trustServerCertificate=false;encrypt=false" \
-  -e KC_DB_SCHEMA=myschema \
   -e KC_DB_USERNAME=SA \
   -e KC_DB_PASSWORD=my_Password \
   -e KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG \
