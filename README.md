@@ -75,7 +75,7 @@ docker run --rm --name mysql -p 3306:3306 \
   -e MYSQL_PASSWORD=password \
   -e MYSQL_ROOT_PASSWORD=root_password \
   --network keycloak-net \
-  mysql:5.7.43
+  mysql:8.2.0
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
@@ -159,7 +159,7 @@ docker run --rm --name mariadb -p 3306:3306 \
   -e MARIADB_PASSWORD=password \
   -e MARIADB_ROOT_PASSWORD=root_password \
   --network keycloak-net \
-  mariadb:10.11.4
+  mariadb:10.11.6
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
@@ -244,7 +244,7 @@ docker run --rm --name postgres -p 5432:5432 \
   -e POSTGRES_USER=keycloak \
   -e POSTGRES_PASSWORD=password \
   --network keycloak-net \
-  postgres:15.4
+  postgres:16.1
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
@@ -330,7 +330,7 @@ docker run --rm --name mssql -p 1433:1433 \
   -e ACCEPT_EULA=Y \
   -e MSSQL_SA_PASSWORD=my_Password \
   --network keycloak-net \
-  mcr.microsoft.com/mssql/server:2022-CU1-ubuntu-20.04
+  mcr.microsoft.com/mssql/server:2022-CU11-ubuntu-22.04
 ```
 
 Open another terminal and run the following command to create `keycloak` database
