@@ -15,7 +15,8 @@ On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-C
 
 ## Supported tags and respective Dockerfile links
 
-- `24.0.1`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/24.0.1/Dockerfile))
+- `24.0.2`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/24.0.2/Dockerfile))
+- `24.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/24.0.1/Dockerfile))
 - `24.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/24.0.0/Dockerfile))
 - `23.0.7` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/23.0.7/Dockerfile))
 - `23.0.6` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/23.0.6/Dockerfile))
@@ -80,7 +81,7 @@ docker run --rm --name mysql -p 3306:3306 \
   -e MYSQL_PASSWORD=password \
   -e MYSQL_ROOT_PASSWORD=root_password \
   --network keycloak-net \
-  mysql:8.2.0
+  mysql:8.3.0
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
