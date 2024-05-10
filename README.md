@@ -15,7 +15,8 @@ On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-C
 
 ## Supported tags and respective Dockerfile links
 
-- `24.0.3`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/24.0.3/Dockerfile))
+- `24.0.4`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/24.0.4/Dockerfile))
+- `24.0.3` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/24.0.3/Dockerfile))
 - `24.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/24.0.2/Dockerfile))
 - `24.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/24.0.1/Dockerfile))
 - `24.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/24.0.0/Dockerfile))
@@ -47,7 +48,7 @@ docker build -t ivanfranchin/keycloak-clustered:latest .
 
 1. Open two different browsers, for instance `Chrome` and `Safari` or `Chrome` and `Incognito Chrome`.
 
-2. In one access http://localhost:8080/admin/ and, in another, http://localhost:8081/admin/
+2. In one access http://localhost:8080 and, in another, http://localhost:8081
 
 3. Login with the following credentials
    ```
