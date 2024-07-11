@@ -39,9 +39,9 @@
         </stack>
         <stack name="mariadb-jdbc-ping-tcp" extends="tcp">
             <TCP external_addr="${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}" />
-            <JDBC_PING connection_driver="com.mysql.jdbc.Driver"
+            <JDBC_PING connection_driver="org.mariadb.jdbc.Driver"
                        connection_username="${env.KC_DB_USERNAME}" connection_password="${env.KC_DB_PASSWORD}"
-                       connection_url="jdbc:mysql://${env.KC_DB_URL_HOST}:${env.KC_DB_URL_PORT:3306}/${env.KC_DB_URL_DATABASE}${env.KC_DB_URL_PROPERTIES:}"
+                       connection_url="jdbc:mariadb://${env.KC_DB_URL_HOST}:${env.KC_DB_URL_PORT:3306}/${env.KC_DB_URL_DATABASE}${env.KC_DB_URL_PROPERTIES:}"
                        initialize_sql="CREATE TABLE IF NOT EXISTS JGROUPSPING (own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, bind_addr varchar(200) NOT NULL, updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, ping_data varbinary(5000) DEFAULT NULL, PRIMARY KEY (own_addr, cluster_name)) ENGINE=InnoDB DEFAULT CHARSET=utf8"
                        insert_single_sql="INSERT INTO JGROUPSPING (own_addr, cluster_name, bind_addr, updated, ping_data) values (?, ?, '${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}', NOW(), ?)"
                        delete_single_sql="DELETE FROM JGROUPSPING WHERE own_addr=? AND cluster_name=?"
