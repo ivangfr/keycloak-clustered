@@ -9,13 +9,14 @@ On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-C
 ## Additional Readings
 
 - \[**Medium**\] [**Keycloak Cluster using JDBC-PING for Distributed Caching**](https://medium.com/@ivangfr/keycloak-cluster-using-jdbc-ping-for-distributed-caching-8ba5c09cc206)
-- \[**Medium**\] [**Keycloak Cluster Setup with Vagrant, Virtual Machines, and JDBC-PING for Distributed Caching**](https://medium.com/javarevisited/keycloak-cluster-setup-with-vagrant-virtual-machines-and-jdbc-ping-for-distributed-caching-bd09708219d1)
-- \[**Medium**\] [**Keycloak Cluster Setup with Docker Compose and JDBC-PING for Distributed Caching**](https://medium.com/javarevisited/keycloak-cluster-setup-with-docker-compose-and-jdbc-ping-for-distributed-caching-3623fb6ee513)
-- \[**Medium**\] [**Keycloak Cluster Setup with Docker Compose and UDP for Distributed Caching**](https://medium.com/javarevisited/keycloak-cluster-setup-with-docker-compose-and-udp-for-distributed-caching-9123be1de12d)
+- \[**Medium**\] [**Keycloak Cluster Setup with Vagrant, Virtual Machines, and JDBC-PING for Distributed Caching**](https://medium.com/@ivangfr/keycloak-cluster-setup-with-vagrant-virtual-machines-and-jdbc-ping-for-distributed-caching-bd09708219d1)
+- \[**Medium**\] [**Keycloak Cluster Setup with Docker Compose and JDBC-PING for Distributed Caching**](https://medium.com/@ivangfr/keycloak-cluster-setup-with-docker-compose-and-jdbc-ping-for-distributed-caching-3623fb6ee513)
+- \[**Medium**\] [**Keycloak Cluster Setup with Docker Compose and UDP for Distributed Caching**](https://medium.com/@ivangfr/keycloak-cluster-setup-with-docker-compose-and-udp-for-distributed-caching-9123be1de12d)
 
 ## Supported tags and respective Dockerfile links
 
-- `25.0.2`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/25.0.2/Dockerfile))
+- `25.0.4`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/25.0.4/Dockerfile))
+- `25.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/25.0.2/Dockerfile))
 - `25.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/25.0.1/Dockerfile))
 - `25.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/25.0.0/Dockerfile))
 - `24.0.5` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/24.0.5/Dockerfile))
@@ -87,7 +88,7 @@ docker run --rm --name mysql -p 3306:3306 \
   -e MYSQL_PASSWORD=password \
   -e MYSQL_ROOT_PASSWORD=root_password \
   --network keycloak-net \
-  mysql:8.4.0
+  mysql:9.0.1
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
@@ -416,7 +417,7 @@ docker network rm keycloak-net
 
 ### Prerequisites
 
-[`VirtualBox`](https://www.virtualbox.org/) and [`Vagrant`](https://www.vagrantup.com/docs/installation)
+[`VirtualBox`](https://www.virtualbox.org/) and [`Vagrant`](https://developer.hashicorp.com/vagrant/docs/installation)
 
 ### Startup
 
