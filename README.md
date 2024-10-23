@@ -23,20 +23,6 @@ On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-C
 - `25.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/25.0.2/Dockerfile))
 - `25.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/25.0.1/Dockerfile))
 - `25.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/25.0.0/Dockerfile))
-- `24.0.5` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/24.0.5/Dockerfile))
-- `24.0.4` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/24.0.4/Dockerfile))
-- `24.0.3` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/24.0.3/Dockerfile))
-- `24.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/24.0.2/Dockerfile))
-- `24.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/24.0.1/Dockerfile))
-- `24.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/24.0.0/Dockerfile))
-- `23.0.7` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/23.0.7/Dockerfile))
-- `23.0.6` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/23.0.6/Dockerfile))
-- `23.0.5` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/23.0.5/Dockerfile))
-- `23.0.4` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/23.0.4/Dockerfile))
-- `23.0.3` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/23.0.3/Dockerfile))
-- `23.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/23.0.2/Dockerfile))
-- `23.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/23.0.1/Dockerfile))
-- `23.0.0` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/23.0.0/Dockerfile))
 
 ## Author
 
