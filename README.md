@@ -15,7 +15,8 @@ On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-C
 
 ## Supported tags and respective Dockerfile links
 
-- `26.0.5`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/26.0.5/Dockerfile))
+- `26.0.6`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/26.0.6/Dockerfile))
+- `26.0.5` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/26.0.5/Dockerfile))
 - `26.0.4` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/26.0.4/Dockerfile))
 - `26.0.2` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/26.0.2/Dockerfile))
 - `26.0.1` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/26.0.1/Dockerfile))
@@ -81,7 +82,7 @@ docker run --rm --name mysql -p 3306:3306 \
   -e MYSQL_PASSWORD=password \
   -e MYSQL_ROOT_PASSWORD=root_password \
   --network keycloak-net \
-  mysql:9.0.1
+  mysql:9.1.0
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
@@ -165,7 +166,7 @@ docker run --rm --name mariadb -p 3306:3306 \
   -e MARIADB_PASSWORD=password \
   -e MARIADB_ROOT_PASSWORD=root_password \
   --network keycloak-net \
-  mariadb:10.11.6
+  mariadb:10.11.10
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
@@ -250,7 +251,7 @@ docker run --rm --name postgres -p 5432:5432 \
   -e POSTGRES_USER=keycloak \
   -e POSTGRES_PASSWORD=password \
   --network keycloak-net \
-  postgres:16.1
+  postgres:17.2
 ```
 
 Open another terminal and run `keycloak-clustered-1` Docker container
