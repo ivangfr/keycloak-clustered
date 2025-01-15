@@ -15,7 +15,8 @@ On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-C
 
 ## Supported tags and respective Dockerfile links
 
-- `26.0.7`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/26.0.7/Dockerfile))
+- `26.0.8`, `latest` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/26.0.8/Dockerfile))
+- `26.0.7` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/26.0.7/Dockerfile))
 - `26.0.6` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/26.0.6/Dockerfile))
 - `26.0.5` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/26.0.5/Dockerfile))
 - `26.0.4` ([Dockerfile](https://github.com/ivangfr/keycloak-clustered/blob/master/26.0.4/Dockerfile))
