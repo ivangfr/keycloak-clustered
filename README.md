@@ -6,6 +6,15 @@
 
 On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-Concepts (PoCs) and articles. You can easily search for the technology you are interested in by using the filter. Who knows, perhaps I have already implemented a PoC or written an article about what you are looking for.
 
+## IMPORTANT
+
+Since the release of version `26.1.0`, the Keycloak default transport stack for cluster discovery has been switched to **JDBC-PING**, simplifying cluster setup and improving cloud compatibility.
+
+In the articles below, I explain how to set up a local Keycloak cluster for development or production with three nodes using Docker Compose.
+
+- \[**Medium**\] [**Keycloak Clustering Made Easy For Development**](https://medium.com/@ivangfr/keycloak-clustering-made-easy-for-development-b753bdb5dc5e)
+- \[**Medium**\] [**Keycloak Clustering Made Easy For Production**](https://medium.com/@ivangfr/keycloak-clustering-made-easy-for-production-d8e53396b234)
+
 ## Additional Readings
 
 - \[**Medium**\] [**Keycloak Cluster using JDBC-PING for Distributed Caching**](https://medium.com/@ivangfr/keycloak-cluster-using-jdbc-ping-for-distributed-caching-8ba5c09cc206)
